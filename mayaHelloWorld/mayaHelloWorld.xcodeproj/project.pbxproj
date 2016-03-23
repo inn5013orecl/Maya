@@ -1,0 +1,267 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EDA2500A1C7C2B41008ED7CE /* helloWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDA250081C7C2B41008ED7CE /* helloWorld.cpp */; };
+		EDA2500B1C7C2B41008ED7CE /* helloWorld.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EDA250091C7C2B41008ED7CE /* helloWorld.hpp */; };
+		EDA2500C1C7C2C80008ED7CE /* Plugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3368EA1C7BF8E8007F1555 /* Plugin.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		ED3368E71C7BF8E8007F1555 /* helloWorld.bundle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = helloWorld.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED3368EA1C7BF8E8007F1555 /* Plugin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Plugin.cpp; sourceTree = "<group>"; };
+		ED3368EB1C7BF8E8007F1555 /* MayaPluginDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MayaPluginDebug.xcconfig; sourceTree = "<group>"; };
+		ED3368EC1C7BF8E8007F1555 /* MayaPluginRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MayaPluginRelease.xcconfig; sourceTree = "<group>"; };
+		EDA250081C7C2B41008ED7CE /* helloWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = helloWorld.cpp; sourceTree = "<group>"; };
+		EDA250091C7C2B41008ED7CE /* helloWorld.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = helloWorld.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ED3368E41C7BF8E8007F1555 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ED3368DD1C7BF8E8007F1555 = {
+			isa = PBXGroup;
+			children = (
+				ED3368E91C7BF8E8007F1555 /* mayaHelloWorld */,
+				ED3368E81C7BF8E8007F1555 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ED3368E81C7BF8E8007F1555 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ED3368E71C7BF8E8007F1555 /* helloWorld.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ED3368E91C7BF8E8007F1555 /* mayaHelloWorld */ = {
+			isa = PBXGroup;
+			children = (
+				ED3368F21C7BFA9A007F1555 /* Source */,
+				ED3368EB1C7BF8E8007F1555 /* MayaPluginDebug.xcconfig */,
+				ED3368EC1C7BF8E8007F1555 /* MayaPluginRelease.xcconfig */,
+			);
+			path = mayaHelloWorld;
+			sourceTree = "<group>";
+		};
+		ED3368F21C7BFA9A007F1555 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				ED3368EA1C7BF8E8007F1555 /* Plugin.cpp */,
+				EDA250081C7C2B41008ED7CE /* helloWorld.cpp */,
+				EDA250091C7C2B41008ED7CE /* helloWorld.hpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		ED3368E21C7BF8E8007F1555 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDA2500B1C7C2B41008ED7CE /* helloWorld.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		ED3368E61C7BF8E8007F1555 /* mayaHelloWorld */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED3368EF1C7BF8E8007F1555 /* Build configuration list for PBXNativeTarget "mayaHelloWorld" */;
+			buildPhases = (
+				ED3368E21C7BF8E8007F1555 /* Headers */,
+				ED3368E31C7BF8E8007F1555 /* Sources */,
+				ED3368E41C7BF8E8007F1555 /* Frameworks */,
+				ED3368E51C7BF8E8007F1555 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = mayaHelloWorld;
+			productName = mayaHelloWorld;
+			productReference = ED3368E71C7BF8E8007F1555 /* helloWorld.bundle */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ED3368DE1C7BF8E8007F1555 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Gary Tse";
+				TargetAttributes = {
+					ED3368E61C7BF8E8007F1555 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = ED3368E11C7BF8E8007F1555 /* Build configuration list for PBXProject "mayaHelloWorld" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ED3368DD1C7BF8E8007F1555;
+			productRefGroup = ED3368E81C7BF8E8007F1555 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ED3368E61C7BF8E8007F1555 /* mayaHelloWorld */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		ED3368E51C7BF8E8007F1555 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "INSTALL_ROOT=$HOME/Library/Preferences/Autodesk/maya/$MAYA_VERSION\nmkdir -p $INSTALL_ROOT/plug-ins\ncp $BUILT_PRODUCTS_DIR/$PRODUCT_NAME.bundle $INSTALL_ROOT/plug-ins\n\t\t\t\t\t\t\t\t\t\t";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ED3368E31C7BF8E8007F1555 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDA2500C1C7C2C80008ED7CE /* Plugin.cpp in Sources */,
+				EDA2500A1C7C2B41008ED7CE /* helloWorld.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		ED3368ED1C7BF8E8007F1555 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = (
+					.,
+					"$(MAYA_LOCATION)/devkit/include/",
+				);
+				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_LOCATION = "/Applications/Autodesk/maya$(MAYA_VERSION)";
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_LOCATION)/Maya.app/Contents/MacOS",
+					"-Wl,-exported_symbol,__Z16initializePlugin7MObject",
+					"-Wl,-exported_symbol,__Z18uninitializePlugin7MObject",
+					"-lOpenMaya",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lOpenMayaUI",
+					"-lFoundation",
+				);
+			};
+			name = Debug;
+		};
+		ED3368EE1C7BF8E8007F1555 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = (
+					.,
+					"$(MAYA_LOCATION)/devkit/include/",
+				);
+				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_LOCATION = "/Applications/Autodesk/maya$(MAYA_VERSION)";
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_LOCATION)/Maya.app/Contents/MacOS",
+					"-Wl,-exported_symbol,__Z16initializePlugin7MObject",
+					"-Wl,-exported_symbol,__Z18uninitializePlugin7MObject",
+					"-lOpenMaya",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lOpenMayaUI",
+					"-lFoundation",
+				);
+			};
+			name = Release;
+		};
+		ED3368F01C7BF8E8007F1555 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
+				EXECUTABLE_EXTENSION = bundle;
+				MAYA_VERSION = 2016;
+				PRODUCT_NAME = helloWorld;
+				SDKROOT = "";
+			};
+			name = Debug;
+		};
+		ED3368F11C7BF8E8007F1555 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
+				EXECUTABLE_EXTENSION = bundle;
+				MAYA_VERSION = 2016;
+				PRODUCT_NAME = helloWorld;
+				SDKROOT = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ED3368E11C7BF8E8007F1555 /* Build configuration list for PBXProject "mayaHelloWorld" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED3368ED1C7BF8E8007F1555 /* Debug */,
+				ED3368EE1C7BF8E8007F1555 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED3368EF1C7BF8E8007F1555 /* Build configuration list for PBXNativeTarget "mayaHelloWorld" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED3368F01C7BF8E8007F1555 /* Debug */,
+				ED3368F11C7BF8E8007F1555 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ED3368DE1C7BF8E8007F1555 /* Project object */;
+}

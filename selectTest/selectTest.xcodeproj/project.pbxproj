@@ -1,0 +1,253 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ED3E78E91CA21F66009B133B /* selectIt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3E78E71CA21F66009B133B /* selectIt.cpp */; };
+		ED3E78EA1CA21F66009B133B /* selectIt.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ED3E78E81CA21F66009B133B /* selectIt.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		ED3E78DB1CA21F2E009B133B /* selectTest.bundle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = selectTest.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED3E78DE1CA21F2E009B133B /* Plugin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Plugin.cpp; sourceTree = "<group>"; };
+		ED3E78DF1CA21F2E009B133B /* MayaPluginDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MayaPluginDebug.xcconfig; sourceTree = "<group>"; };
+		ED3E78E01CA21F2E009B133B /* MayaPluginRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MayaPluginRelease.xcconfig; sourceTree = "<group>"; };
+		ED3E78E71CA21F66009B133B /* selectIt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = selectIt.cpp; sourceTree = "<group>"; };
+		ED3E78E81CA21F66009B133B /* selectIt.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = selectIt.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ED3E78D81CA21F2E009B133B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ED3E78D11CA21F2E009B133B = {
+			isa = PBXGroup;
+			children = (
+				ED3E78DD1CA21F2E009B133B /* selectTest */,
+				ED3E78DC1CA21F2E009B133B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ED3E78DC1CA21F2E009B133B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ED3E78DB1CA21F2E009B133B /* selectTest.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ED3E78DD1CA21F2E009B133B /* selectTest */ = {
+			isa = PBXGroup;
+			children = (
+				ED3E78DE1CA21F2E009B133B /* Plugin.cpp */,
+				ED3E78DF1CA21F2E009B133B /* MayaPluginDebug.xcconfig */,
+				ED3E78E01CA21F2E009B133B /* MayaPluginRelease.xcconfig */,
+				ED3E78E71CA21F66009B133B /* selectIt.cpp */,
+				ED3E78E81CA21F66009B133B /* selectIt.hpp */,
+			);
+			path = selectTest;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		ED3E78D61CA21F2E009B133B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED3E78EA1CA21F66009B133B /* selectIt.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		ED3E78DA1CA21F2E009B133B /* selectTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED3E78E31CA21F2E009B133B /* Build configuration list for PBXNativeTarget "selectTest" */;
+			buildPhases = (
+				ED3E78D61CA21F2E009B133B /* Headers */,
+				ED3E78D71CA21F2E009B133B /* Sources */,
+				ED3E78D81CA21F2E009B133B /* Frameworks */,
+				ED3E78D91CA21F2E009B133B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = selectTest;
+			productName = selectTest;
+			productReference = ED3E78DB1CA21F2E009B133B /* selectTest.bundle */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ED3E78D21CA21F2E009B133B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Gary Tse";
+				TargetAttributes = {
+					ED3E78DA1CA21F2E009B133B = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = ED3E78D51CA21F2E009B133B /* Build configuration list for PBXProject "selectTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ED3E78D11CA21F2E009B133B;
+			productRefGroup = ED3E78DC1CA21F2E009B133B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ED3E78DA1CA21F2E009B133B /* selectTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		ED3E78D91CA21F2E009B133B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "INSTALL_ROOT=$HOME/Library/Preferences/Autodesk/maya/$MAYA_VERSION\nmkdir -p $INSTALL_ROOT/plug-ins\ncp $BUILT_PRODUCTS_DIR/$PRODUCT_NAME.bundle $INSTALL_ROOT/plug-ins\n\t\t\t\t\t\t\t\t\t\t";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ED3E78D71CA21F2E009B133B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED3E78E91CA21F66009B133B /* selectIt.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		ED3E78E11CA21F2E009B133B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = (
+					.,
+					"$(MAYA_LOCATION)/devkit/include/",
+				);
+				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_LOCATION = "/Applications/Autodesk/maya$(MAYA_VERSION)";
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_LOCATION)/Maya.app/Contents/MacOS",
+					"-Wl,-exported_symbol,__Z16initializePlugin7MObject",
+					"-Wl,-exported_symbol,__Z18uninitializePlugin7MObject",
+					"-lOpenMaya",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lOpenMayaUI",
+					"-lFoundation",
+				);
+			};
+			name = Debug;
+		};
+		ED3E78E21CA21F2E009B133B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = (
+					.,
+					"$(MAYA_LOCATION)/devkit/include/",
+				);
+				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_LOCATION = "/Applications/Autodesk/maya$(MAYA_VERSION)";
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_LOCATION)/Maya.app/Contents/MacOS",
+					"-Wl,-exported_symbol,__Z16initializePlugin7MObject",
+					"-Wl,-exported_symbol,__Z18uninitializePlugin7MObject",
+					"-lOpenMaya",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lOpenMayaUI",
+					"-lFoundation",
+				);
+			};
+			name = Release;
+		};
+		ED3E78E41CA21F2E009B133B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED3E78DF1CA21F2E009B133B /* MayaPluginDebug.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
+				MAYA_VERSION = 2016;
+			};
+			name = Debug;
+		};
+		ED3E78E51CA21F2E009B133B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED3E78E01CA21F2E009B133B /* MayaPluginRelease.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
+				MAYA_VERSION = 2016;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ED3E78D51CA21F2E009B133B /* Build configuration list for PBXProject "selectTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED3E78E11CA21F2E009B133B /* Debug */,
+				ED3E78E21CA21F2E009B133B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED3E78E31CA21F2E009B133B /* Build configuration list for PBXNativeTarget "selectTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED3E78E41CA21F2E009B133B /* Debug */,
+				ED3E78E51CA21F2E009B133B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ED3E78D21CA21F2E009B133B /* Project object */;
+}

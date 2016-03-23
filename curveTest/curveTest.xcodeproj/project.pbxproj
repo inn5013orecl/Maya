@@ -1,0 +1,263 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EDA2500E1C7C2DA2008ED7CE /* doHelix.h in Headers */ = {isa = PBXBuildFile; fileRef = EDA2500D1C7C2DA2008ED7CE /* doHelix.h */; };
+		EDA4588F1CA245B100E1643A /* doHelix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDA250061C7C0B78008ED7CE /* doHelix.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		EDA24FFA1C7C0B01008ED7CE /* curveTest.bundle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = curveTest.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDA24FFD1C7C0B01008ED7CE /* Plugin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Plugin.cpp; sourceTree = "<group>"; };
+		EDA24FFE1C7C0B01008ED7CE /* MayaPluginDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MayaPluginDebug.xcconfig; sourceTree = "<group>"; };
+		EDA24FFF1C7C0B01008ED7CE /* MayaPluginRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MayaPluginRelease.xcconfig; sourceTree = "<group>"; };
+		EDA250061C7C0B78008ED7CE /* doHelix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = doHelix.cpp; sourceTree = "<group>"; };
+		EDA2500D1C7C2DA2008ED7CE /* doHelix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = doHelix.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EDA24FF71C7C0B01008ED7CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EDA24FF01C7C0B01008ED7CE = {
+			isa = PBXGroup;
+			children = (
+				EDA24FFC1C7C0B01008ED7CE /* curveTest */,
+				EDA24FFB1C7C0B01008ED7CE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EDA24FFB1C7C0B01008ED7CE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EDA24FFA1C7C0B01008ED7CE /* curveTest.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EDA24FFC1C7C0B01008ED7CE /* curveTest */ = {
+			isa = PBXGroup;
+			children = (
+				EDA250051C7C0B47008ED7CE /* Source */,
+				EDA24FFE1C7C0B01008ED7CE /* MayaPluginDebug.xcconfig */,
+				EDA24FFF1C7C0B01008ED7CE /* MayaPluginRelease.xcconfig */,
+			);
+			path = curveTest;
+			sourceTree = "<group>";
+		};
+		EDA250051C7C0B47008ED7CE /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				EDA24FFD1C7C0B01008ED7CE /* Plugin.cpp */,
+				EDA250061C7C0B78008ED7CE /* doHelix.cpp */,
+				EDA2500D1C7C2DA2008ED7CE /* doHelix.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		EDA24FF51C7C0B01008ED7CE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDA2500E1C7C2DA2008ED7CE /* doHelix.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		EDA24FF91C7C0B01008ED7CE /* curveTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EDA250021C7C0B01008ED7CE /* Build configuration list for PBXNativeTarget "curveTest" */;
+			buildPhases = (
+				EDA24FF51C7C0B01008ED7CE /* Headers */,
+				EDA24FF61C7C0B01008ED7CE /* Sources */,
+				EDA24FF71C7C0B01008ED7CE /* Frameworks */,
+				EDA24FF81C7C0B01008ED7CE /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = curveTest;
+			productName = curveTest;
+			productReference = EDA24FFA1C7C0B01008ED7CE /* curveTest.bundle */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EDA24FF11C7C0B01008ED7CE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Gary Tse";
+				TargetAttributes = {
+					EDA24FF91C7C0B01008ED7CE = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = EDA24FF41C7C0B01008ED7CE /* Build configuration list for PBXProject "curveTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EDA24FF01C7C0B01008ED7CE;
+			productRefGroup = EDA24FFB1C7C0B01008ED7CE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EDA24FF91C7C0B01008ED7CE /* curveTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EDA24FF81C7C0B01008ED7CE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "INSTALL_ROOT=$HOME/Library/Preferences/Autodesk/maya/$MAYA_VERSION\nmkdir -p $INSTALL_ROOT/plug-ins\ncp $BUILT_PRODUCTS_DIR/$PRODUCT_NAME.bundle $INSTALL_ROOT/plug-ins\n\t\t\t\t\t\t\t\t\t\t";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EDA24FF61C7C0B01008ED7CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDA4588F1CA245B100E1643A /* doHelix.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EDA250001C7C0B01008ED7CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = (
+					.,
+					"$(MAYA_LOCATION)/devkit/include/",
+				);
+				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_LOCATION = "/Applications/Autodesk/maya$(MAYA_VERSION)";
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_LOCATION)/Maya.app/Contents/MacOS",
+					"-Wl,-exported_symbol,__Z16initializePlugin7MObject",
+					"-Wl,-exported_symbol,__Z18uninitializePlugin7MObject",
+					"-lOpenMaya",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lOpenMayaUI",
+					"-lFoundation",
+				);
+			};
+			name = Debug;
+		};
+		EDA250011C7C0B01008ED7CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = (
+					.,
+					"$(MAYA_LOCATION)/devkit/include/",
+				);
+				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_LOCATION = "/Applications/Autodesk/maya$(MAYA_VERSION)";
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_LOCATION)/Maya.app/Contents/MacOS",
+					"-Wl,-exported_symbol,__Z16initializePlugin7MObject",
+					"-Wl,-exported_symbol,__Z18uninitializePlugin7MObject",
+					"-lOpenMaya",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lOpenMayaUI",
+					"-lFoundation",
+				);
+			};
+			name = Release;
+		};
+		EDA250031C7C0B01008ED7CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDA24FFE1C7C0B01008ED7CE /* MayaPluginDebug.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
+				MAYA_VERSION = 2016;
+				SDKROOT = "";
+			};
+			name = Debug;
+		};
+		EDA250041C7C0B01008ED7CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDA24FFF1C7C0B01008ED7CE /* MayaPluginRelease.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
+				MAYA_VERSION = 2016;
+				SDKROOT = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EDA24FF41C7C0B01008ED7CE /* Build configuration list for PBXProject "curveTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EDA250001C7C0B01008ED7CE /* Debug */,
+				EDA250011C7C0B01008ED7CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EDA250021C7C0B01008ED7CE /* Build configuration list for PBXNativeTarget "curveTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EDA250031C7C0B01008ED7CE /* Debug */,
+				EDA250041C7C0B01008ED7CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EDA24FF11C7C0B01008ED7CE /* Project object */;
+}
