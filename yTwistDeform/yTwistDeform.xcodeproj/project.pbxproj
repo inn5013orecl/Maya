@@ -1,0 +1,252 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EDD2EBDC1CBD7DF200161E78 /* yTwist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDD2EBDA1CBD7DF200161E78 /* yTwist.cpp */; };
+		EDD2EBDD1CBD7DF200161E78 /* yTwist.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD2EBDB1CBD7DF200161E78 /* yTwist.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		EDD2EBCF1CBD7DC600161E78 /* yTwistDeform.bundle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = yTwistDeform.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDD2EBD21CBD7DC600161E78 /* Plugin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Plugin.cpp; sourceTree = "<group>"; };
+		EDD2EBD31CBD7DC600161E78 /* MayaPluginDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MayaPluginDebug.xcconfig; sourceTree = "<group>"; };
+		EDD2EBD41CBD7DC600161E78 /* MayaPluginRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MayaPluginRelease.xcconfig; sourceTree = "<group>"; };
+		EDD2EBDA1CBD7DF200161E78 /* yTwist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = yTwist.cpp; sourceTree = "<group>"; };
+		EDD2EBDB1CBD7DF200161E78 /* yTwist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yTwist.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EDD2EBCC1CBD7DC600161E78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EDD2EBC51CBD7DC600161E78 = {
+			isa = PBXGroup;
+			children = (
+				EDD2EBD11CBD7DC600161E78 /* yTwistDeform */,
+				EDD2EBD01CBD7DC600161E78 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EDD2EBD01CBD7DC600161E78 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EDD2EBCF1CBD7DC600161E78 /* yTwistDeform.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EDD2EBD11CBD7DC600161E78 /* yTwistDeform */ = {
+			isa = PBXGroup;
+			children = (
+				EDD2EBD21CBD7DC600161E78 /* Plugin.cpp */,
+				EDD2EBD31CBD7DC600161E78 /* MayaPluginDebug.xcconfig */,
+				EDD2EBD41CBD7DC600161E78 /* MayaPluginRelease.xcconfig */,
+				EDD2EBDA1CBD7DF200161E78 /* yTwist.cpp */,
+				EDD2EBDB1CBD7DF200161E78 /* yTwist.h */,
+			);
+			path = yTwistDeform;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		EDD2EBCA1CBD7DC600161E78 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDD2EBDD1CBD7DF200161E78 /* yTwist.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		EDD2EBCE1CBD7DC600161E78 /* yTwistDeform */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EDD2EBD71CBD7DC600161E78 /* Build configuration list for PBXNativeTarget "yTwistDeform" */;
+			buildPhases = (
+				EDD2EBCA1CBD7DC600161E78 /* Headers */,
+				EDD2EBCB1CBD7DC600161E78 /* Sources */,
+				EDD2EBCC1CBD7DC600161E78 /* Frameworks */,
+				EDD2EBCD1CBD7DC600161E78 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = yTwistDeform;
+			productName = yTwistDeform;
+			productReference = EDD2EBCF1CBD7DC600161E78 /* yTwistDeform.bundle */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EDD2EBC61CBD7DC600161E78 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Gary Tse";
+				TargetAttributes = {
+					EDD2EBCE1CBD7DC600161E78 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = EDD2EBC91CBD7DC600161E78 /* Build configuration list for PBXProject "yTwistDeform" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EDD2EBC51CBD7DC600161E78;
+			productRefGroup = EDD2EBD01CBD7DC600161E78 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EDD2EBCE1CBD7DC600161E78 /* yTwistDeform */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EDD2EBCD1CBD7DC600161E78 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "INSTALL_ROOT=$HOME/Library/Preferences/Autodesk/maya/$MAYA_VERSION\nmkdir -p $INSTALL_ROOT/plug-ins\ncp $BUILT_PRODUCTS_DIR/$PRODUCT_NAME.bundle $INSTALL_ROOT/plug-ins\n\t\t\t\t\t\t\t\t\t\t";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EDD2EBCB1CBD7DC600161E78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDD2EBDC1CBD7DF200161E78 /* yTwist.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EDD2EBD51CBD7DC600161E78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = (
+					.,
+					"$(MAYA_LOCATION)/devkit/include/",
+				);
+				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_LOCATION = "/Applications/Autodesk/maya$(MAYA_VERSION)";
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_LOCATION)/Maya.app/Contents/MacOS",
+					"-Wl,-exported_symbol,__Z16initializePlugin7MObject",
+					"-Wl,-exported_symbol,__Z18uninitializePlugin7MObject",
+					"-lOpenMaya",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lOpenMayaUI",
+					"-lFoundation",
+				);
+			};
+			name = Debug;
+		};
+		EDD2EBD61CBD7DC600161E78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = (
+					.,
+					"$(MAYA_LOCATION)/devkit/include/",
+				);
+				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_LOCATION = "/Applications/Autodesk/maya$(MAYA_VERSION)";
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_LOCATION)/Maya.app/Contents/MacOS",
+					"-Wl,-exported_symbol,__Z16initializePlugin7MObject",
+					"-Wl,-exported_symbol,__Z18uninitializePlugin7MObject",
+					"-lOpenMaya",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lOpenMayaUI",
+					"-lFoundation",
+				);
+			};
+			name = Release;
+		};
+		EDD2EBD81CBD7DC600161E78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDD2EBD31CBD7DC600161E78 /* MayaPluginDebug.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
+				MAYA_VERSION = 2016;
+			};
+			name = Debug;
+		};
+		EDD2EBD91CBD7DC600161E78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDD2EBD41CBD7DC600161E78 /* MayaPluginRelease.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
+				MAYA_VERSION = 2016;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EDD2EBC91CBD7DC600161E78 /* Build configuration list for PBXProject "yTwistDeform" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EDD2EBD51CBD7DC600161E78 /* Debug */,
+				EDD2EBD61CBD7DC600161E78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EDD2EBD71CBD7DC600161E78 /* Build configuration list for PBXNativeTarget "yTwistDeform" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EDD2EBD81CBD7DC600161E78 /* Debug */,
+				EDD2EBD91CBD7DC600161E78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EDD2EBC61CBD7DC600161E78 /* Project object */;
+}

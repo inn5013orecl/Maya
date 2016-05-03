@@ -9,12 +9,15 @@
 #ifndef selectIt_hpp
 #define selectIt_hpp
 
-#include <stdio.h>
+#include <cstdio>
+#include <iostream>
+#include <typeinfo>
 #include <maya/MSimple.h>
 #include <maya/MGlobal.h>
 #include <maya/MString.h>
 #include <maya/MDagPath.h>
 #include <maya/MFnDagNode.h>
+#include <maya/MFnTransform.h>
 #include <maya/MSelectionList.h>
 #include <maya/MItSelectionList.h>
 #include <maya/MFnMesh.h>
@@ -26,6 +29,9 @@
 #include <maya/MIntArray.h>
 #include <maya/MIOStream.h>
 #include <maya/MFnPlugin.h>
+#include <maya/MDagModifier.h>
+
+#include <CGAL/Surface_mesh_deformation.h>
 
 class SelectIt:public MPxCommand {
 public:
