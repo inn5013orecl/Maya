@@ -1,0 +1,294 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ED13670C1CDA919C00D63897 /* convertCGAL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED13670A1CDA919C00D63897 /* convertCGAL.cpp */; };
+		ED1367121CDA92B400D63897 /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED13670E1CDA92B400D63897 /* libboost_thread-mt.dylib */; };
+		ED1367131CDA92B400D63897 /* libCGAL_Core.11.0.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED13670F1CDA92B400D63897 /* libCGAL_Core.11.0.1.dylib */; };
+		ED1367141CDA92B400D63897 /* libCGAL.11.0.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED1367101CDA92B400D63897 /* libCGAL.11.0.1.dylib */; };
+		ED1367151CDA92B400D63897 /* libgmp.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED1367111CDA92B400D63897 /* libgmp.10.dylib */; };
+		ED1367171CDA92FB00D63897 /* libmpfr.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED1367161CDA92FB00D63897 /* libmpfr.4.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
+		ED13671A1CDAAE4400D63897 /* skeletonization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED1367181CDAAE4400D63897 /* skeletonization.cpp */; };
+		ED13671B1CDAAE4400D63897 /* skeletonization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ED1367191CDAAE4400D63897 /* skeletonization.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		ED1366F71CDA907500D63897 /* skeletonization.bundle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = skeletonization.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED1366FA1CDA907500D63897 /* Plugin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Plugin.cpp; sourceTree = "<group>"; };
+		ED1366FB1CDA907500D63897 /* MayaPluginDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MayaPluginDebug.xcconfig; sourceTree = "<group>"; };
+		ED1366FC1CDA907500D63897 /* MayaPluginRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MayaPluginRelease.xcconfig; sourceTree = "<group>"; };
+		ED13670A1CDA919C00D63897 /* convertCGAL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = convertCGAL.cpp; sourceTree = "<group>"; };
+		ED13670B1CDA919C00D63897 /* convertCGAL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = convertCGAL.hpp; sourceTree = "<group>"; };
+		ED13670E1CDA92B400D63897 /* libboost_thread-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_thread-mt.dylib"; path = "../../../../../../opt/local/lib/libboost_thread-mt.dylib"; sourceTree = "<group>"; };
+		ED13670F1CDA92B400D63897 /* libCGAL_Core.11.0.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libCGAL_Core.11.0.1.dylib; path = ../../../../../../opt/local/lib/libCGAL_Core.11.0.1.dylib; sourceTree = "<group>"; };
+		ED1367101CDA92B400D63897 /* libCGAL.11.0.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libCGAL.11.0.1.dylib; path = ../../../../../../opt/local/lib/libCGAL.11.0.1.dylib; sourceTree = "<group>"; };
+		ED1367111CDA92B400D63897 /* libgmp.10.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgmp.10.dylib; path = ../../../../../../opt/local/lib/libgmp.10.dylib; sourceTree = "<group>"; };
+		ED1367161CDA92FB00D63897 /* libmpfr.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmpfr.4.dylib; path = ../../../../../../opt/local/lib/libmpfr.4.dylib; sourceTree = "<group>"; };
+		ED1367181CDAAE4400D63897 /* skeletonization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skeletonization.cpp; sourceTree = "<group>"; };
+		ED1367191CDAAE4400D63897 /* skeletonization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = skeletonization.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ED1366F41CDA907500D63897 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED1367171CDA92FB00D63897 /* libmpfr.4.dylib in Frameworks */,
+				ED1367121CDA92B400D63897 /* libboost_thread-mt.dylib in Frameworks */,
+				ED1367131CDA92B400D63897 /* libCGAL_Core.11.0.1.dylib in Frameworks */,
+				ED1367141CDA92B400D63897 /* libCGAL.11.0.1.dylib in Frameworks */,
+				ED1367151CDA92B400D63897 /* libgmp.10.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ED1366ED1CDA907500D63897 = {
+			isa = PBXGroup;
+			children = (
+				ED1367161CDA92FB00D63897 /* libmpfr.4.dylib */,
+				ED13670E1CDA92B400D63897 /* libboost_thread-mt.dylib */,
+				ED13670F1CDA92B400D63897 /* libCGAL_Core.11.0.1.dylib */,
+				ED1367101CDA92B400D63897 /* libCGAL.11.0.1.dylib */,
+				ED1367111CDA92B400D63897 /* libgmp.10.dylib */,
+				ED1366F91CDA907500D63897 /* skeletonization */,
+				ED1366F81CDA907500D63897 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ED1366F81CDA907500D63897 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ED1366F71CDA907500D63897 /* skeletonization.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ED1366F91CDA907500D63897 /* skeletonization */ = {
+			isa = PBXGroup;
+			children = (
+				ED1366FA1CDA907500D63897 /* Plugin.cpp */,
+				ED13670B1CDA919C00D63897 /* convertCGAL.hpp */,
+				ED13670A1CDA919C00D63897 /* convertCGAL.cpp */,
+				ED1367191CDAAE4400D63897 /* skeletonization.hpp */,
+				ED1367181CDAAE4400D63897 /* skeletonization.cpp */,
+				ED1366FB1CDA907500D63897 /* MayaPluginDebug.xcconfig */,
+				ED1366FC1CDA907500D63897 /* MayaPluginRelease.xcconfig */,
+			);
+			path = skeletonization;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		ED1366F21CDA907500D63897 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED13671B1CDAAE4400D63897 /* skeletonization.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		ED1366F61CDA907500D63897 /* skeletonization */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED1366FF1CDA907500D63897 /* Build configuration list for PBXNativeTarget "skeletonization" */;
+			buildPhases = (
+				ED1366F21CDA907500D63897 /* Headers */,
+				ED1366F31CDA907500D63897 /* Sources */,
+				ED1366F41CDA907500D63897 /* Frameworks */,
+				ED1366F51CDA907500D63897 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = skeletonization;
+			productName = skeletonization;
+			productReference = ED1366F71CDA907500D63897 /* skeletonization.bundle */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ED1366EE1CDA907500D63897 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Gary Tse";
+				TargetAttributes = {
+					ED1366F61CDA907500D63897 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = ED1366F11CDA907500D63897 /* Build configuration list for PBXProject "skeletonization" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ED1366ED1CDA907500D63897;
+			productRefGroup = ED1366F81CDA907500D63897 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ED1366F61CDA907500D63897 /* skeletonization */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		ED1366F51CDA907500D63897 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "INSTALL_ROOT=$HOME/Library/Preferences/Autodesk/maya/$MAYA_VERSION\nmkdir -p $INSTALL_ROOT/plug-ins\ncp $BUILT_PRODUCTS_DIR/$PRODUCT_NAME.bundle $INSTALL_ROOT/plug-ins\n\t\t\t\t\t\t\t\t\t\t";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ED1366F31CDA907500D63897 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED13670C1CDA919C00D63897 /* convertCGAL.cpp in Sources */,
+				ED13671A1CDAAE4400D63897 /* skeletonization.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		ED1366FD1CDA907500D63897 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = (
+					.,
+					"$(MAYA_LOCATION)/devkit/include/",
+					/opt/local/include/,
+				);
+				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_LOCATION = "/Applications/Autodesk/maya$(MAYA_VERSION)";
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_LOCATION)/Maya.app/Contents/MacOS",
+					"-Wl,-exported_symbol,__Z16initializePlugin7MObject",
+					"-Wl,-exported_symbol,__Z18uninitializePlugin7MObject",
+					"-lOpenMaya",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lOpenMayaUI",
+					"-lFoundation",
+				);
+			};
+			name = Debug;
+		};
+		ED1366FE1CDA907500D63897 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+				);
+				HEADER_SEARCH_PATHS = (
+					.,
+					"$(MAYA_LOCATION)/devkit/include/",
+					/opt/local/include/,
+				);
+				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_LOCATION = "/Applications/Autodesk/maya$(MAYA_VERSION)";
+				OTHER_LDFLAGS = (
+					"-Wl,-executable_path,$(MAYA_LOCATION)/Maya.app/Contents/MacOS",
+					"-Wl,-exported_symbol,__Z16initializePlugin7MObject",
+					"-Wl,-exported_symbol,__Z18uninitializePlugin7MObject",
+					"-lOpenMaya",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-lOpenMayaUI",
+					"-lFoundation",
+				);
+			};
+			name = Release;
+		};
+		ED1367001CDA907500D63897 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED1366FB1CDA907500D63897 /* MayaPluginDebug.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				MAYA_VERSION = 2016;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		ED1367011CDA907500D63897 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED1366FC1CDA907500D63897 /* MayaPluginRelease.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
+				MAYA_VERSION = 2016;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ED1366F11CDA907500D63897 /* Build configuration list for PBXProject "skeletonization" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED1366FD1CDA907500D63897 /* Debug */,
+				ED1366FE1CDA907500D63897 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED1366FF1CDA907500D63897 /* Build configuration list for PBXNativeTarget "skeletonization" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED1367001CDA907500D63897 /* Debug */,
+				ED1367011CDA907500D63897 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ED1366EE1CDA907500D63897 /* Project object */;
+}

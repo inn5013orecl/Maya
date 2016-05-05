@@ -45,7 +45,7 @@ MStatus SelectIt::doIt(const MArgList &argList) {
         verticesList.append(vertexIter.position());
     }*/
     
-    //cout << "Vertex List length: " << verticesList.length() << endl;
+    cout << "Vertex List length: " << verticesList.length() << endl;
     
     std::cout << "Test string" << endl;
     
@@ -56,16 +56,17 @@ MStatus SelectIt::doIt(const MArgList &argList) {
         for (int j = 0; j < 4; j++) {
             cout << vertList[j] << ", ";
         }
+        cout << endl;
         //cout << " -- "<< typeid(vertList[0]).name() << endl;
         //cout << endl;
     }
     
-    cout << "\nNumber of Triangles: " << numTri << endl;
+    //cout << "\nNumber of Triangles: " << numTri << endl;
     
     /** Diagonals and node positioning **/
     
     // get diagonals to calculate center
-    
+    /*
     MPoint  first = verticesList[0]; //bottom left
     MPoint  second = verticesList[5]; //top right
     MPoint  diag = MPoint( (first.x + second.x)/2 , (first.y + second.y)/2 , (first.z + second.z)/2, 1 );
@@ -102,7 +103,7 @@ MStatus SelectIt::doIt(const MArgList &argList) {
     stat = cmd.doIt();
     
     //cout << objLoc.apiType() << endl; //110 = kTransform
-    
+    */
     /** End diagonals and node positioning **/
     
     if (MS::kSuccess != stat) {
