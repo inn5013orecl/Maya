@@ -191,6 +191,7 @@
 					.,
 					"$(MAYA_LOCATION)/devkit/include/",
 					/opt/local/include/,
+					/opt/local/include/eigen3/,
 				);
 				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
 				LIBRARY_STYLE = BUNDLE;
@@ -223,6 +224,7 @@
 					.,
 					"$(MAYA_LOCATION)/devkit/include/",
 					/opt/local/include/,
+					/opt/local/include/eigen3/,
 				);
 				LIBRARY_SEARCH_PATHS = "$(MAYA_LOCATION)/Maya.app/Contents/MacOS";
 				LIBRARY_STYLE = BUNDLE;
