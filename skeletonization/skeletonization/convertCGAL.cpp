@@ -133,7 +133,6 @@ static void mesh2polyhedron(MFnMesh &mesh, Polyhedron &P)
     int edge_num = 0;
     for(Polyhedron::Edge_iterator iter = P.edges_begin(); iter != P.edges_end(); ++iter) {
         edge_num++;
-        //std::cout << iter->Vertex << std::endl;
         //cout << endl;
     }
     std::cout << "Number of CGAL edges: " << edge_num << std::endl;
@@ -141,7 +140,6 @@ static void mesh2polyhedron(MFnMesh &mesh, Polyhedron &P)
     int half_num = 0;
     for(Polyhedron::Halfedge_iterator iter = P.halfedges_begin(); iter != P.halfedges_end(); ++iter) {
         half_num++;
-        //std::cout << iter->Vertex << std::endl;
         //cout << endl;
     }
     std::cout << "Number of CGAL half-edges: " << half_num << std::endl;
@@ -149,7 +147,6 @@ static void mesh2polyhedron(MFnMesh &mesh, Polyhedron &P)
     int facet_num = 0;
     for(Polyhedron::Facet_iterator iter = P.facets_begin(); iter != P.facets_end(); ++iter) {
         facet_num++;
-        //std::cout << iter->Vertex << std::endl;
         //cout << endl;
     }
     std::cout << "Number of CGAL facets: " << facet_num << std::endl;

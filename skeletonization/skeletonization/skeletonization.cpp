@@ -38,25 +38,36 @@ MStatus Skeletonize::doIt(const MArgList &argList) {
         mesh2polyhedron(meshFn, cgalPolyH);
         
         //at the moment, only gets # of triangles for selected faces
-        MItMeshPolygon triIter(meshDagPath);
-        triIter.numTriangles(numTri);
+        //MItMeshPolygon triIter(meshDagPath);
+        //triIter.numTriangles(numTri);
     }
     
     // add ID's the Polyhedron
     CGAL::set_halfedgeds_items_id(cgalPolyH);
+    std::cout << "++++Finished adding IDs++++" << std::endl;
     
     // save original Polyhedron just in case
     Polyhedron cgalPolyH_original = cgalPolyH;
     
     std::size_t nvert = 0 /*, nrow = 0, ncol = 0 */;
     nvert = cgalPolyH.size_of_vertices();
+    std::cout << "nvert = " << nvert << std::endl;
     
     // initialize Laplacian Matrix (nvert x nvert)
     // all elements initialized to 0
     Eigen_matrix L(nvert,nvert);
+    for (std::size_t i = 0; i < nvert; ++i) {
+        for (std::size_t j = 0; j < nvert; ++j) {
+            L.set(i, j, 0.0);                               //force everything to initilize to 0 due to random numbering errors in initialization
+        }
+    }
+    
+    //std::cout << "Laplacian Matrix L:\n" << L << std::endl;
+    std::cout << "++++Finished initializing Laplacian matrix++++" << std::endl;
     
     //contract geometry
-    contract_geometry(cgalPolyH, L);
+    std::cout << "++++BEFORE contract_geometry++++" << std::endl;
+    contract_geometry(cgalPolyH, L, nvert);
     
     /*
      for(MItMeshVertex vertexIter(thePolygon, &stat); !vertexIter.isDone(); vertexIter.next() ){
@@ -64,7 +75,7 @@ MStatus Skeletonize::doIt(const MArgList &argList) {
      }*/
     
     cout << "Maya Vertex count: " << verticesList.length() << endl;
-    
+    cout << "Maya vertices list:" << endl;
     /*
     for (int i = 0; i < verticesList.length(); i++) {
         //cout << verticesList[i] << endl;
@@ -111,15 +122,15 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
             if (hc->vertex() == iter->vertex()) {
                 p = hc->vertex()->point();
                 r = hc->opposite()->vertex()->point();
-                q = hc->next()->vertex()->point();          // since circulator is counter-clockwise
-                stop = 1;                                   // just in case break doesn't work for some reason
+                q = hc->next()->vertex()->point();              // since circulator is counter-clockwise
+                stop = 1;                                       // just in case break doesn't work for some reason
                 break;
             }
         }while(++hc != iter->facet()->facet_begin() || stop == 1);
         
         // get angle
-        CGAL::Cartesian<double>::Vector_3 v1(q, p),         // v1 = p - q
-                                          v2(q, r);         // v2 = r - q
+        CGAL::Cartesian<double>::Vector_3 v1(q, p),             // v1 = p - q
+                                          v2(q, r);             // v2 = r - q
         
         // make unit vectors
         v1 = v1 / std::sqrt(v1 * v1);
@@ -137,15 +148,15 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
             if (hc_o->vertex() == iter->opposite()->vertex()) {
                 p = hc_o->vertex()->point();
                 r = hc_o->opposite()->vertex()->point();
-                q = hc_o->next()->vertex()->point();          // since circulator is counter-clockwise
-                stop = 1;                                   // just in case break doesn't work for some reason
+                q = hc_o->next()->vertex()->point();            // since circulator is counter-clockwise
+                stop = 1;                                       // just in case break doesn't work for some reason
                 break;
             }
         }while(++hc_o != iter->opposite()->facet()->facet_begin() || stop_o == 1);
         
         // get angle for opposite side
-        CGAL::Cartesian<double>::Vector_3 v3(q, p),         // v3 = p - q
-                                          v4(q, r);         // v4 = r - q
+        CGAL::Cartesian<double>::Vector_3 v3(q, p),             // v3 = p - q
+                                          v4(q, r);             // v4 = r - q
         
         // make unit vectors
         v3 = v3 / std::sqrt(v3 * v3);
@@ -158,7 +169,8 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
         double w_ij = cotan(angle1) + cotan(angle2);
         
         // L.set(i,j, result_of_equation)
-        L.set_coef(i, j, w_ij);
+        //L.set_coef(i, j, w_ij);
+        L.set(i, j, w_ij);
     }
     
     /***** diagonal of L matrix (L[i][i]) *****/
@@ -179,8 +191,10 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
             r = hc->opposite()->vertex()->point();
             q = hc->next()->vertex()->point();
             
-            CGAL::Cartesian<double>::Vector_3 v1(q, p),         // v1 = p - q
-                                              v2(q, r);         // v2 = r - q
+            
+            //CGAL::Cartesian<double>::Vector_3
+            CGAL::Vector_3<CGAL::Cartesian<double>> v1(q, p),   // v1 = p - q
+                                                    v2(q, r);   // v2 = r - q
             
             // make unit vectors
             v1 = v1 / std::sqrt(v1 * v1);
@@ -193,8 +207,8 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
             v = hc->vertex()->point();
             
             // get angle for opposite side
-            CGAL::Cartesian<double>::Vector_3 v3(q, p),         // v3 = p - q
-                                              v4(q, r);         // v4 = r - q
+            CGAL::Vector_3<CGAL::Cartesian<double>> v3(q, p),   // v3 = p - q
+                                                    v4(q, r);   // v4 = r - q
             
             // make unit vectors
             v3 = v3 / std::sqrt(v3 * v3);
@@ -208,31 +222,176 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
         }while(++hc != iter->vertex_begin());
 
         // L.set(i,i, result_of_equation)
-        L.set_coef(i, i, w_ij);
+        //L.set_coef(i, i, w_ij);
+        L.set(i, i, w_ij);
         
     }
+    std::cout << "Laplacian Matrix L:\n" << L << std::endl;
+    std::cout << "++++Finished Calculating Laplacian Matrix++++" << std::endl;
     
 }
 
 double Skeletonize::calculate_volume(Polyhedron &cgalPolyH) {
-    return 0.0;
+    
+    double volume = 0.0;
+    
+    for (Polyhedron::Facet_iterator iter = cgalPolyH.facets_begin(); iter != cgalPolyH.facets_end(); ++iter) {
+        //make sure it's a triangle
+        CGAL_assertion(iter->is_triangle());
+        Polyhedron::Point_3 p1, p2, p3;
+
+        p1 = iter->halfedge()->vertex()->point();
+        p2 = iter->halfedge()->next()->vertex()->point();
+        p3 = iter->halfedge()->next()->next()->vertex()->point();
+        
+        //CGAL::Linear_algebraCd<double>::Matrix m(4);
+        //double a = CGAL::Linear_algebraCd<double>::determinant(m);
+        
+        Eigen_matrix m(4, 4);
+        //std::cout << "Initialized Matrix m:\n" << m << std::endl;
+        
+        // 1st row
+        m.set(0, 0, p1.x());
+        m.set(0, 1, p2.x());
+        m.set(0, 2, p3.x());
+        m.set(0, 3, 0);
+        // 2nd row
+        m.set(1, 0, p1.y());
+        m.set(1, 1, p2.y());
+        m.set(2, 2, p3.y());
+        m.set(3, 3, 0);
+        // 3rd row
+        m.set(2, 0, p1.z());
+        m.set(2, 1, p2.z());
+        m.set(2, 2, p3.z());
+        m.set(2, 3, 0);
+        // 4th row
+        m.set(3, 0, 1);
+        m.set(3, 1, 1);
+        m.set(3, 2, 1);
+        m.set(3, 3, 1);
+        
+        //std::cout << "Post-set Matrix m:\n" << m << std::endl;
+        
+        double a = m.determinant();
+        
+        a = std::abs(a) / 6;
+        
+        // 6 * Volume = sum of determinants of (triangular) faces of polyhedron
+        volume += a;
+
+        // probably doesn't work due to volume calculations and triangle orientations
+        // orientation is defined by location of CGAL::ORIGIN in relation to plane defined by p1,p2,p3
+        //CGAL::Tetrahedron_3<CGAL::Cartesian<double>> tetra(p1,p2,p3,CGAL::ORIGIN);
+        //tetra.volume();
+    }
+    std::cout << "volume: " << volume << std::endl;
+    return volume;
 }
 
-void Skeletonize::contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L) {
+double Skeletonize::calculate_one_ring_area(Polyhedron::Vertex_iterator vi) {
+
+    double or_area = 0.0;
+    Polyhedron::Halfedge_around_vertex_const_circulator hc = vi->vertex_begin();
+    
+    do {
+        Polyhedron::Point_3 a,b,c;
+        a = hc->vertex()->point();
+        b = hc->next()->vertex()->point();
+        c = hc->opposite()->vertex()->point();
+        
+        CGAL::Triangle_3<CGAL::Cartesian<double>> t(a,b,c);
+        or_area += sqrt(t.squared_area());
+    }while(++hc != vi->vertex_begin());
+    
+    return or_area;
+}
+
+void Skeletonize::contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std::size_t nvert) {
     
     // initial values
+    std::cout << "++++Begin Contract Geometry++++" << std::endl;
     int iter_count = 0;
-    double original_volume, current_volume, volume_ratio;
+    double original_volume = 0.0, current_volume = 0.0, volume_ratio = 0.0, current_or_area = 0.0;
     double threshold = 1e-6;
+    std::cout << "++++BEFORE 1st calculate_volume++++" << std::endl;
     original_volume = calculate_volume(cgalPolyH);
+    std::vector<double> original_or_area;
+    original_or_area.clear();
     
-    // create Laplacian matrix with new vertex positions every iteration
-    do {
+    // calculate original one ring areas for every vertex;
+    for (Polyhedron::Vertex_iterator iter = cgalPolyH.vertices_begin(); iter != cgalPolyH.vertices_end(); ++iter) {
+        original_or_area.push_back(calculate_one_ring_area(iter));
+    }
+    
+    std::cout << "Size of original_or_area: " << original_or_area.size() << std::endl;
+    
+    Eigen_matrix W_h(nvert, nvert), W_l(nvert, nvert), W_h_orig(nvert, nvert);
+
+    // calculate initial avg face area term for W_l
+    double f_area = 0.0;
+    for (Polyhedron::Facet_iterator iter = cgalPolyH.facets_begin(); iter != cgalPolyH.facets_end(); ++iter) {
+        CGAL_assertion(iter->is_triangle());
+        Polyhedron::Point_3 p1,p2,p3;
+        
+        p1 = iter->halfedge()->vertex()->point();
+        p2 = iter->halfedge()->next()->vertex()->point();
+        p3 = iter->halfedge()->next()->next()->vertex()->point();
+        
+        CGAL::Triangle_3<CGAL::Cartesian<double>> t(p1,p2,p3);
+        //std::cout << "current face's area: " << sqrt(t.squared_area()) << std::endl;
+        f_area += sqrt(t.squared_area());
+    }
+    f_area = f_area / nvert;
+    
+    for (std::size_t i = 0; i < nvert; ++i) {
+        for (std::size_t j = 0; j < nvert; ++j) {
+            if (i == j) {
+                //std::cout << "i == j" << std::endl;
+                W_h.set(i, i, 1.0);
+                W_l.set(i, i, pow(10, -3) * sqrt(f_area));
+                W_h_orig.set(i, i, 1.0);
+            }
+            else {
+                W_h.set(i, j, 0.0);
+                W_l.set(i, j, 0.0);
+                W_h_orig.set(i, j, 0.0);
+            }
+        }
+    }
+    
+    // save original W_h for update purposes
+    
+    
+    //do {
+        // create Laplacian matrix with new vertex positions every iteration
         createLaplacian(L, cgalPolyH);
+        
+        // solve for minimized energy
+        
+        // update weights
+        W_l *= 2.0;
+        for (Polyhedron::Vertex_iterator iter = cgalPolyH.vertices_begin(); iter != cgalPolyH.vertices_end(); ++iter) {
+            std::size_t i;
+            i = iter->id();
+            current_or_area = calculate_one_ring_area(iter);
+            W_h.set(i,i, sqrt(original_or_area[i]/current_or_area));
+            //W_h.set(i,i, W_h_orig(i,i) * sqrt(original_or_area[i]/current_or_area[i]));       // w_h_orig diagonals = 1.0
+        }
+    
+        // calculate current volume after each iteration
+        std::cout << "++++BEFORE 2nd calculate volume++++" << std::endl;
         current_volume = calculate_volume(cgalPolyH);
+        std::cout << "++++AFTER 2nd calculate volume++++" << std::endl;
         volume_ratio = current_volume / original_volume;
+        std::cout << "++++AFTER calculating volume RATIO++++" << std::endl;
+        
         ++iter_count;
-    }while(volume_ratio >= threshold);
+    //}while(volume_ratio >= threshold || iter_count >= 30);                                    // iteration count max 30 as a breakpoint
+    
+    if (iter_count >= 30) {
+        std::cout << "max iterations of 30 reached" << std::endl;
+    }
     
     std::cout << "\n===========\nContraction Complete\n===========\n\n";
 }

@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <cmath>
 
 #include <maya/MPxCommand.h>
 #include <maya/MGlobal.h>
@@ -32,10 +33,16 @@
 #include <maya/MDagModifier.h>
 
 #include <CGAL/Cartesian.h>
+#include <CGAL/Cartesian_d.h>
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/Polyhedron_items_with_id_3.h>
 #include <CGAL/boost/graph/graph_traits_Polyhedron_3.h>
 #include <CGAL/boost/graph/properties_Polyhedron_3.h>
+//#include <CGAL/Tetrahedron_3.h>
+#include <CGAL/Triangle_3.h>
+
+#include <Eigen/LU>
+
 #include <CGAL/Surface_mesh_deformation.h>
 
 #include <CGAL/Eigen_solver_traits.h>
@@ -58,14 +65,16 @@ public:
     static void* creator();
     
     //CGAL functions
-    typedef CGAL::Eigen_solver_traits<>     Eigen_Solver;
-    typedef Eigen_Solver::Matrix            Eigen_matrix;
-    typedef Eigen_Solver::Vector            Eigen_vector;
+    //typedef CGAL::Eigen_solver_traits<>     Eigen_Solver;
+    //typedef Eigen_Solver::Matrix            Eigen_matrix;
+    //typedef Eigen_Solver::Vector            Eigen_vector;
+    typedef CGAL::Eigen_matrix<double>          Eigen_matrix;
 
     void createLaplacian(Eigen_matrix &L, Polyhedron P);
     double calculate_volume(Polyhedron &cgalPolyH);
+    double calculate_one_ring_area(Polyhedron::Vertex_iterator vi);
     
-    void contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L);
+    void contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std::size_t nvert);
     void connectivity_surgery();
     void curve_refinement();
     
