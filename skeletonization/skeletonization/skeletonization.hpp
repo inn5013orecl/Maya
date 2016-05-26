@@ -73,8 +73,9 @@ public:
     void createLaplacian(Eigen_matrix &L, Polyhedron P);
     double calculate_volume(Polyhedron &cgalPolyH);
     double calculate_one_ring_area(Polyhedron::Vertex_iterator vi);
+    void quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron P, std::size_t nvert);
     
-    void contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std::size_t nvert);
+    void contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std::size_t nvert, std::size_t nface);
     void connectivity_surgery();
     void curve_refinement();
     

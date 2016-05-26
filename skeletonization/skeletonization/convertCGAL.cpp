@@ -118,7 +118,7 @@ static void mesh2polyhedron(MFnMesh &mesh, Polyhedron &P)
     Mesh_to_polyhedron<Polyhedron::HalfedgeDS> builder(mesh);
     P.delegate(builder);
     
-    ///* Test for correctly built item
+    /* Test for correctly built item
     CGAL::set_pretty_mode(cout);
     
     int vert_num = 0;
@@ -150,7 +150,7 @@ static void mesh2polyhedron(MFnMesh &mesh, Polyhedron &P)
         //cout << endl;
     }
     std::cout << "Number of CGAL facets: " << facet_num << std::endl;
-     //*/
+     */
 }
 
 //helper function for computing cotangent

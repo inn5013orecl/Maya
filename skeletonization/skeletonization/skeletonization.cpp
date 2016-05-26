@@ -46,12 +46,28 @@ MStatus Skeletonize::doIt(const MArgList &argList) {
     CGAL::set_halfedgeds_items_id(cgalPolyH);
     std::cout << "++++Finished adding IDs++++" << std::endl;
     
+    std::size_t nvert = 0, nface = 0; /*, nrow = 0, ncol = 0 */;
+    nvert = cgalPolyH.size_of_vertices();
+    nface = cgalPolyH.size_of_facets();
+    std::cout << "Number of vertices = " << nvert << std::endl;
+    
+    CGAL::set_ascii_mode(cout);
+    
+    for (Polyhedron::Vertex_iterator iter = cgalPolyH.vertices_begin(); iter != cgalPolyH.vertices_end(); ++iter) {
+        std::cout << "vertex " << iter->id() << ": " << iter->point() << std::endl;
+    }
+    std::cout<<std::endl;
+    
+    std::size_t edge_count = 0;
+    for (Polyhedron::Halfedge_iterator iter = cgalPolyH.halfedges_begin(); iter != cgalPolyH.halfedges_end(); ++iter) {
+        std::cout << "Halfedge " << edge_count << ":\nsource: " << iter->opposite()->vertex()->point() << ", end: " << iter->vertex()->point() << std::endl;
+        std::cout << "Halfedge next: " << iter->next()->vertex()->point() <<std::endl;
+        edge_count++;
+    }
+    std::cout<<std::endl;
+    
     // save original Polyhedron just in case
     Polyhedron cgalPolyH_original = cgalPolyH;
-    
-    std::size_t nvert = 0 /*, nrow = 0, ncol = 0 */;
-    nvert = cgalPolyH.size_of_vertices();
-    std::cout << "nvert = " << nvert << std::endl;
     
     // initialize Laplacian Matrix (nvert x nvert)
     // all elements initialized to 0
@@ -67,7 +83,7 @@ MStatus Skeletonize::doIt(const MArgList &argList) {
     
     //contract geometry
     std::cout << "++++BEFORE contract_geometry++++" << std::endl;
-    contract_geometry(cgalPolyH, L, nvert);
+    contract_geometry(cgalPolyH, L, nvert, nface);
     
     /*
      for(MItMeshVertex vertexIter(thePolygon, &stat); !vertexIter.isDone(); vertexIter.next() ){
@@ -75,7 +91,7 @@ MStatus Skeletonize::doIt(const MArgList &argList) {
      }*/
     
     cout << "Maya Vertex count: " << verticesList.length() << endl;
-    cout << "Maya vertices list:" << endl;
+    //cout << "Maya vertices list:" << endl;
     /*
     for (int i = 0; i < verticesList.length(); i++) {
         //cout << verticesList[i] << endl;
@@ -133,8 +149,8 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
                                           v2(q, r);             // v2 = r - q
         
         // make unit vectors
-        v1 = v1 / std::sqrt(v1 * v1);
-        v2 = v2 / std::sqrt(v2 * v2);
+        v1 = v1 / std::sqrt(v1.squared_length());
+        v2 = v2 / std::sqrt(v2.squared_length());
         
         double angle1 = std::acos(v1 * v2);
         
@@ -159,8 +175,8 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
                                           v4(q, r);             // v4 = r - q
         
         // make unit vectors
-        v3 = v3 / std::sqrt(v3 * v3);
-        v4 = v4 / std::sqrt(v4 * v4);
+        v3 = v3 / std::sqrt(v3.squared_length());
+        v4 = v4 / std::sqrt(v4.squared_length());
         
         double angle2 = std::acos(v3 * v4);
         
@@ -197,8 +213,8 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
                                                     v2(q, r);   // v2 = r - q
             
             // make unit vectors
-            v1 = v1 / std::sqrt(v1 * v1);
-            v2 = v2 / std::sqrt(v2 * v2);
+            v1 = v1 / std::sqrt(v1.squared_length());
+            v2 = v2 / std::sqrt(v2.squared_length());
             
             double angle1 = std::acos(v1 * v2);
             
@@ -211,8 +227,8 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
                                                     v4(q, r);   // v4 = r - q
             
             // make unit vectors
-            v3 = v3 / std::sqrt(v3 * v3);
-            v4 = v4 / std::sqrt(v4 * v4);
+            v3 = v3 / std::sqrt(v3.squared_length());
+            v4 = v4 / std::sqrt(v4.squared_length());
             
             double angle2 = std::acos(v3 * v4);
             
@@ -229,6 +245,17 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
     std::cout << "Laplacian Matrix L:\n" << L << std::endl;
     std::cout << "++++Finished Calculating Laplacian Matrix++++" << std::endl;
     
+}
+
+void Skeletonize::quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron P, std::size_t nvert) {
+    // define A for A * x = b (quadratic programming constraint)
+    
+    // W_l * L
+    auto a_top = W_l * L;
+    std::cout << "W_L * L:\n" << a_top << std::endl;
+    
+    // solve for minimized energy
+
 }
 
 double Skeletonize::calculate_volume(Polyhedron &cgalPolyH) {
@@ -307,7 +334,7 @@ double Skeletonize::calculate_one_ring_area(Polyhedron::Vertex_iterator vi) {
     return or_area;
 }
 
-void Skeletonize::contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std::size_t nvert) {
+void Skeletonize::contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std::size_t nvert, std::size_t nface) {
     
     // initial values
     std::cout << "++++Begin Contract Geometry++++" << std::endl;
@@ -324,7 +351,7 @@ void Skeletonize::contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std:
         original_or_area.push_back(calculate_one_ring_area(iter));
     }
     
-    std::cout << "Size of original_or_area: " << original_or_area.size() << std::endl;
+    std::cout << "Size (# of items in) of original_or_area: " << original_or_area.size() << std::endl;
     
     Eigen_matrix W_h(nvert, nvert), W_l(nvert, nvert), W_h_orig(nvert, nvert);
 
@@ -342,33 +369,36 @@ void Skeletonize::contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std:
         //std::cout << "current face's area: " << sqrt(t.squared_area()) << std::endl;
         f_area += sqrt(t.squared_area());
     }
-    f_area = f_area / nvert;
+    f_area = f_area / nface;
     
     for (std::size_t i = 0; i < nvert; ++i) {
         for (std::size_t j = 0; j < nvert; ++j) {
             if (i == j) {
-                //std::cout << "i == j" << std::endl;
                 W_h.set(i, i, 1.0);
                 W_l.set(i, i, pow(10, -3) * sqrt(f_area));
+                // save original W_h for update purposes
                 W_h_orig.set(i, i, 1.0);
             }
             else {
                 W_h.set(i, j, 0.0);
                 W_l.set(i, j, 0.0);
+                // save original W_h for update purposes
                 W_h_orig.set(i, j, 0.0);
             }
         }
     }
     
-    // save original W_h for update purposes
+    std::cout << "W_h matrix:\n" << W_h << std::endl;
+    std::cout << "W_l matrix:\n" << W_l << std::endl;
     
     
     //do {
         // create Laplacian matrix with new vertex positions every iteration
         createLaplacian(L, cgalPolyH);
-        
-        // solve for minimized energy
-        
+    
+        // Quadratic function minimization
+        quadratic_solver(W_l, W_h, L, cgalPolyH, nvert);
+    
         // update weights
         W_l *= 2.0;
         for (Polyhedron::Vertex_iterator iter = cgalPolyH.vertices_begin(); iter != cgalPolyH.vertices_end(); ++iter) {
