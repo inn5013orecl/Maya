@@ -49,6 +49,17 @@
 #include <Eigen/SparseCholesky>
 #include <boost/graph/graph_traits.hpp>
 
+#include <CGAL/QP_models.h>
+#include <CGAL/QP_functions.h>
+
+#ifdef CGAL_USE_GMP
+#include <CGAL/Gmpz.h>
+typedef CGAL::Gmpz ET;
+#else
+#include <CGAL/MP_Float.h>
+typedef CGAL::MP_Float ET;
+#endif
+
 #include "convertCGAL.cpp"
 
 
@@ -65,10 +76,13 @@ public:
     static void* creator();
     
     //CGAL functions
-    //typedef CGAL::Eigen_solver_traits<>     Eigen_Solver;
-    //typedef Eigen_Solver::Matrix            Eigen_matrix;
-    //typedef Eigen_Solver::Vector            Eigen_vector;
-    typedef CGAL::Eigen_matrix<double>          Eigen_matrix;
+    //typedef CGAL::Eigen_solver_traits<>           Eigen_Solver;
+    //typedef Eigen_Solver::Matrix                  Eigen_matrix;
+    //typedef Eigen_Solver::Vector                  Eigen_vector;
+    typedef CGAL::Eigen_matrix<double>              Eigen_matrix;
+    typedef CGAL::Linear_algebraCd<double>::Matrix  cgalMatrix;
+    typedef CGAL::Quadratic_program<double>         Program;
+    typedef CGAL::Quadratic_program_solution<ET>    Solution;
 
     void createLaplacian(Eigen_matrix &L, Polyhedron P);
     double calculate_volume(Polyhedron &cgalPolyH);

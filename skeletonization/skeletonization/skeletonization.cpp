@@ -53,6 +53,7 @@ MStatus Skeletonize::doIt(const MArgList &argList) {
     
     CGAL::set_ascii_mode(cout);
     
+    /*
     for (Polyhedron::Vertex_iterator iter = cgalPolyH.vertices_begin(); iter != cgalPolyH.vertices_end(); ++iter) {
         std::cout << "vertex " << iter->id() << ": " << iter->point() << std::endl;
     }
@@ -65,6 +66,7 @@ MStatus Skeletonize::doIt(const MArgList &argList) {
         edge_count++;
     }
     std::cout<<std::endl;
+    */
     
     // save original Polyhedron just in case
     Polyhedron cgalPolyH_original = cgalPolyH;
@@ -248,11 +250,91 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
 }
 
 void Skeletonize::quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron P, std::size_t nvert) {
-    // define A for A * x = b (quadratic programming constraint)
+
+    Program qp(CGAL::EQUAL, false, 0, false, 0);
     
+    // define A for A * x = b (quadratic programming constraint)
     // W_l * L
-    auto a_top = W_l * L;
-    std::cout << "W_L * L:\n" << a_top << std::endl;
+    Eigen::MatrixXd a_top = W_l * L;
+    Eigen::MatrixXd a_bot = W_h;
+    
+    /*
+    std::cout << "3rd column of first row of a_top: " << a_top.row(0)[2] << std::endl;
+    std::cout << "4th column of 3rd row of a_top: " << a_top.row(2)[3] << std::endl;
+    std::cout << "a_top:\n" << a_top << std::endl;
+    std::cout << "before creating a_top vectors\n";
+    */
+    
+    //NOTE: Use (the same) 1 row of a_top for every 3 rows of A, use next row of a_top for next 3 rows of A, repeat till no more rows of a_top
+    
+    Eigen::MatrixXd A(nvert * 6, nvert * 3);
+    A.setZero();
+    //std::cout << "W_L * L:\n" << a_top << std::endl;
+    
+    // top half of A
+    std::size_t k = 0;
+    for (std::size_t i = 0; i < 3 * nvert; ++i) {
+        std::size_t m = 0;
+        for (std::size_t j = 0; j < 3 * nvert; ++j) {
+            if (j % 3 == i % 3) {
+                qp.set_a(j, i, a_top.row(k)[m]);
+                A(i,j) = a_top.row(k)[m];
+                m++;
+            }
+            else {
+                qp.set_a(j, i, 0);
+            }
+        }
+        // next a_top row every 3 rows of A
+        if ((i+1) % 3 == 0) k++;
+    }
+    
+    // bottom half of A
+    k = 0;
+    for (std::size_t i = 3 * nvert; i < 6 * nvert; ++i) {
+        std::size_t m = 0;
+        for (std::size_t j = 0; j < 3 * nvert; ++j) {
+            if (j % 3 == i % 3) {
+                qp.set_a(j, i, a_bot.row(k)[m]);
+                A(i,j) = a_bot.row(k)[m];
+                m++;
+            }
+            else {
+                qp.set_a(j, i, 0);
+            }
+        }
+        // next a_top row every 3 rows of A
+        if ((i+1) % 3 == 0) k++;
+    }
+    
+    std::cout << "A Matrix:\n" << A << std::endl;
+    
+    // set B
+    
+    //change this to make vertex matrix
+    for (Polyhedron::Vertex_iterator iter = P.vertices_begin(); iter != P.vertices_end(); ++iter) {
+        std::cout << "vertex " << iter->id() << ": " << iter->point() << std::endl;
+    }
+    
+    Eigen::VectorXd B(nvert * 6);
+    Eigen::MatrixXd b_bot = W_h * L; //change L to current vertices matrix
+    std::vector<double> b_bot_v;
+    b_bot_v.clear();
+    
+    for (int i = 0, nRows = b_bot.rows(), nCols = b_bot.cols(); i < nRows; ++i) {
+        for (int j = 0; j < nCols; ++j) {
+            b_bot_v.push_back(b_bot(i,j));
+        }
+    }
+    
+    for (std::size_t i = 0; i < 3 * nvert; ++i) {
+        B(i) = 0;
+    }
+    k = 0;
+    for (std::size_t i = 3 * nvert; i < 6 * nvert; ++i) {
+        B(i) = b_bot_v[k];
+        k++;
+    }
     
     // solve for minimized energy
 
