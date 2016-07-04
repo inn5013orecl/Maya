@@ -15,7 +15,7 @@
 
 #include <cstdio>
 
-#include <CGAL/Point_3.h>
+//#include <CGAL/Point_3.h>
 #include <CGAL/Cartesian.h>
 //#include <CGAL/HalfedgeDS_face_max_base_with_id.h>
 #include <CGAL/HalfedgeDS_face_base.h>
@@ -117,6 +117,8 @@ static void mesh2polyhedron(MFnMesh &mesh, Polyhedron &P)
 {
     Mesh_to_polyhedron<Polyhedron::HalfedgeDS> builder(mesh);
     P.delegate(builder);
+    
+    P.make_tetrahedron(Polyhedron::Point(1,0,0), Polyhedron::Point(0,0,1), Polyhedron::Point(0,0,0), Polyhedron::Point(0,1,0));
     
     /* Test for correctly built item
     CGAL::set_pretty_mode(cout);

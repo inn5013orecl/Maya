@@ -249,7 +249,7 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
     
 }
 
-void Skeletonize::quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron P, std::size_t nvert) {
+Polyhedron Skeletonize::quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron P, std::size_t nvert) {
 
     Program qp(CGAL::EQUAL, false, 0, false, 0);
     
@@ -273,9 +273,9 @@ void Skeletonize::quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_mat
     
     // top half of A
     std::size_t k = 0;
-    for (std::size_t i = 0; i < 3 * nvert; ++i) {
+    for (std::size_t i = 0; i < 3 * nvert; ++i) {                           // row
         std::size_t m = 0;
-        for (std::size_t j = 0; j < 3 * nvert; ++j) {
+        for (std::size_t j = 0; j < 3 * nvert; ++j) {                       // column
             if (j % 3 == i % 3) {
                 qp.set_a(j, i, a_top.row(k)[m]);
                 A(i,j) = a_top.row(k)[m];
@@ -291,9 +291,9 @@ void Skeletonize::quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_mat
     
     // bottom half of A
     k = 0;
-    for (std::size_t i = 3 * nvert; i < 6 * nvert; ++i) {
+    for (std::size_t i = 3 * nvert; i < 6 * nvert; ++i) {                   // row
         std::size_t m = 0;
-        for (std::size_t j = 0; j < 3 * nvert; ++j) {
+        for (std::size_t j = 0; j < 3 * nvert; ++j) {                       // column
             if (j % 3 == i % 3) {
                 qp.set_a(j, i, a_bot.row(k)[m]);
                 A(i,j) = a_bot.row(k)[m];
@@ -309,17 +309,24 @@ void Skeletonize::quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_mat
     
     std::cout << "A Matrix:\n" << A << std::endl;
     
-    // set B
-    
-    //change this to make vertex matrix
+    // define b for A * x = b (quadratic programming constraint)
+    Eigen::MatrixX3d vertices(nvert, 3);
+    vertices.setZero();
+
+    // create current iteration vertices matrix
     for (Polyhedron::Vertex_iterator iter = P.vertices_begin(); iter != P.vertices_end(); ++iter) {
-        std::cout << "vertex " << iter->id() << ": " << iter->point() << std::endl;
+        vertices(iter->id(), 0) = iter->point().x();
+        vertices(iter->id(), 1) = iter->point().y();
+        vertices(iter->id(), 2) = iter->point().z();
     }
+    std::cout << "vertices matrix:\n" << vertices << std::endl;
     
     Eigen::VectorXd B(nvert * 6);
-    Eigen::MatrixXd b_bot = W_h * L; //change L to current vertices matrix
+    Eigen::MatrixXd b_bot = W_h * vertices; //change L to current vertices matrix
     std::vector<double> b_bot_v;
     b_bot_v.clear();
+    
+    std::cout << "b_bot matrix:\n" << b_bot << std::endl;
     
     for (int i = 0, nRows = b_bot.rows(), nCols = b_bot.cols(); i < nRows; ++i) {
         for (int j = 0; j < nCols; ++j) {
@@ -328,23 +335,95 @@ void Skeletonize::quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_mat
     }
     
     for (std::size_t i = 0; i < 3 * nvert; ++i) {
+        qp.set_b(i, 0);
         B(i) = 0;
     }
     k = 0;
     for (std::size_t i = 3 * nvert; i < 6 * nvert; ++i) {
+        qp.set_b(i, b_bot_v[k]);
         B(i) = b_bot_v[k];
         k++;
     }
     
+    std::cout << "B vector:\n" << B << std::endl;
     // solve for minimized energy
+    //Eigen::MatrixXd W_h_squared(nvert,nvert);
+    //W_h_squared = W_h * W_h;
+    
+    Eigen::MatrixXd values(nvert,nvert);
+    //std::vector<double> c_values;
 
+    //c_values.clear();
+    values.setZero();
+    
+    // set D
+    for (std::size_t i = 0; i < nvert; ++i) {                               // row
+        for (std::size_t j = 0; j < nvert; ++j) {                           // column
+            if (i == j) {
+                values(i,j) += (W_h(i,j) * W_h(i,j)) + (a_top(i,j) * a_top(i,j));
+            }
+            else {
+                values(i,j) += (a_top(i,j) * a_top(i,j));
+            }
+            //qp.set_d(j, i, 2 * value);
+        }
+    }
+    
+    for (std::size_t i = 0; i < nvert; ++i) {                               // row
+        for (std::size_t j = 0; j < nvert; ++j) {                           // column
+            qp.set_d(j, i, 2 * values(i,j));
+        }
+        
+    }
+    
+    // set C
+    /*
+    for (std::size_t i = 0; i < nvert; ++i) {
+        c_values.push_back(vertices(i,0));
+        c_values.push_back(vertices(i,1));
+        c_values.push_back(vertices(i,2));
+    }
+    
+    for (std::size_t i = 0; i < nvert * 3; ++i) {
+        qp.set_c(i, c_values[i]);
+    }
+    */
+    
+    for (std::size_t i = 0; i < nvert; i+=3) {
+        qp.set_c(i,   vertices(i,0));
+        qp.set_c(i+1, vertices(i,1));
+        qp.set_c(i+2, vertices(i,2));
+    }
+    
+    qp.set_c0(1);                                                   // c_0 needs to be sum of all of them; w_h^2 * (vertices(i).x^2 + vertices(i).y^2 + vertices(i).z^2)
+    Polyhedron poly = P;
+    
+    Solution s = CGAL::solve_quadratic_program(qp, ET());
+    auto solution_iter = s.variable_values_begin();
+    s.variable_numerators_begin();
+    //typedef CGAL::Cartesian<double>                 Kernel;
+    //typedef Kernel::Point_3                         Point;
+    for (Polyhedron::Vertex_iterator iter = poly.vertices_begin(); iter != poly.vertices_end(); ++iter) {
+        if (solution_iter == s.variable_values_end()) {
+            std::cout << "~~~~ERROR: solution values reached before polyhedron written~~~~" << std::endl;
+            break;
+        }
+        
+        double x = CGAL::to_double(solution_iter->numerator());
+        double y = CGAL::to_double((solution_iter+1)->numerator())/CGAL::to_double((solution_iter+1)->denominator());
+        double z = CGAL::to_double((solution_iter+2)->numerator())/CGAL::to_double((solution_iter+2)->denominator());
+        iter->point() = Polyhedron::Point_3(x,y,z);
+        solution_iter += 3;
+    }
+
+    return poly;
 }
 
-double Skeletonize::calculate_volume(Polyhedron &cgalPolyH) {
+double Skeletonize::calculate_volume(Polyhedron P) {
     
     double volume = 0.0;
     
-    for (Polyhedron::Facet_iterator iter = cgalPolyH.facets_begin(); iter != cgalPolyH.facets_end(); ++iter) {
+    for (Polyhedron::Facet_iterator iter = P.facets_begin(); iter != P.facets_end(); ++iter) {
         //make sure it's a triangle
         CGAL_assertion(iter->is_triangle());
         Polyhedron::Point_3 p1, p2, p3;
@@ -479,7 +558,7 @@ void Skeletonize::contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std:
         createLaplacian(L, cgalPolyH);
     
         // Quadratic function minimization
-        quadratic_solver(W_l, W_h, L, cgalPolyH, nvert);
+        cgalPolyH = quadratic_solver(W_l, W_h, L, cgalPolyH, nvert);
     
         // update weights
         W_l *= 2.0;
