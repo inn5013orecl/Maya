@@ -79,7 +79,8 @@ public:
     //typedef CGAL::Eigen_solver_traits<>           Eigen_Solver;
     //typedef Eigen_Solver::Matrix                  Eigen_matrix;
     //typedef Eigen_Solver::Vector                  Eigen_vector;
-    typedef CGAL::Eigen_matrix<double>              Eigen_matrix;
+    //typedef CGAL::Eigen_matrix<double>            Eigen_matrix;
+    typedef Eigen::MatrixXd                         Eigen_matrix;
     typedef CGAL::Linear_algebraCd<double>::Matrix  cgalMatrix;
     typedef CGAL::Quadratic_program<double>         Program;
     typedef CGAL::Quadratic_program_solution<ET>    Solution;
@@ -87,7 +88,7 @@ public:
     void createLaplacian(Eigen_matrix &L, Polyhedron P);
     double calculate_volume(Polyhedron P);
     double calculate_one_ring_area(Polyhedron::Vertex_iterator vi);
-    Polyhedron quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron P, std::size_t nvert);
+    void quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron &cgalPolyH, std::size_t nvert);
     
     void contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std::size_t nvert, std::size_t nface);
     void connectivity_surgery();
