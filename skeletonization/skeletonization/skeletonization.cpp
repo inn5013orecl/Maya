@@ -353,28 +353,31 @@ void Skeletonize::quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_mat
 
     //c_values.clear();
     values.setZero();
+    std::cout << "original values matrix:\n" << values << std::endl;
     
     // set D
-    double W_h_squared = 0, a_top_squared = 0;
-    for (std::size_t i = 0; i < nvert * 3; ++i) {                           // row
-        for (std::size_t j = i; j < nvert * 3; ++j) {                       // column
+    // relies on integer division to get correct matrix coordinates
+    double W_h_squared = 0;
+    for (std::size_t i = 0; i < nvert * 3; ++i) {                               // row
+        for (std::size_t j = i; j < nvert * 3; ++j) {                           // column
+            W_h_squared = W_h(i%nvert,j%nvert) * W_h(i%nvert,j%nvert);
+            // diagonal of set_d matrix
             if (i == j) {
-                W_h_squared = W_h(i%nvert,j%nvert) * W_h(i%nvert,j%nvert);
-                //a_top_squared = a_top(i%nvert,j%nvert) * a_top(i%nvert,j%nvert);
                 for (std::size_t k = 0; k < nvert; ++k) {
                     values(i,j) += a_top(k,j/3) * a_top(k,j/3);
                 }
                                          
                 values(i,j) += W_h_squared;
             }
-            else {
-                for (std::size_t s = 0; s < nvert * 3; ++s) {               //change end condition, currently incorrect (maybe)
-                    for (std::size_t t = 0; t < nvert * 3; ++t) {           //change end condition, currently incorrect (maybe)
-                        
-                    }
-                    
+            // all valid combinations of set_d matrix
+            else if (i%3 == j%3) {
+                for (std::size_t k = 0; k < nvert; ++k) {
+                    values(i,j) += a_top(k,i/3) * a_top(k,j/3);
                 }
-                //values(i,j) += a_top(i,j) * a_top(i,j);                     // incorrect formula
+            }
+            // all combinations of set_d matrix that do not exist from W_l * L
+            else {
+                values(i,j) = 0;
             }
         }
     }
@@ -400,7 +403,7 @@ void Skeletonize::quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_mat
         qp.set_c(i, c_values[i]);
     }
     */
-    double c_0 = 0;                                                         // c_0 = sum of all c_0 for each vertex
+    double c_0 = 0;                                                             // c_0 = sum of all c_0 for each vertex
     for (std::size_t i = 0, j = 0; i < nvert * 3; i+=3, ++j) {
         qp.set_c(i,   -2 * vertices(j,0) * W_h(j,j) * W_h(j,j));
         qp.set_c(i+1, -2 * vertices(j,1) * W_h(j,j) * W_h(j,j));
@@ -464,8 +467,8 @@ double Skeletonize::calculate_volume(Polyhedron P) {
         // 2nd row
         m(1, 0) = p1.y();
         m(1, 1) = p2.y();
-        m(2, 2) = p3.y();
-        m(3, 3) = 0;
+        m(1, 2) = p3.y();
+        m(1, 3) = 0;
         // 3rd row
         m(2, 0) = p1.z();
         m(2, 1) = p2.z();
@@ -481,7 +484,8 @@ double Skeletonize::calculate_volume(Polyhedron P) {
         
         double a = m.determinant();
         
-        a = std::abs(a) / 6;
+        //a = std::abs(a) / 6;
+        a = a / 6;
         
         // 6 * Volume = sum of determinants of (triangular) faces of polyhedron
         volume += a;

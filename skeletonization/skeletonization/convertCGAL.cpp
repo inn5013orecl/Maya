@@ -92,7 +92,7 @@ public:
             
             B.add_vertex(Point(pts[i].x,pts[i].y,pts[i].z));
         }
-        
+
         // triangles
         for ( unsigned i = 0 ; i < tvers.length()/3 ; i++ ) {
             //HDS::Face_handle fh = B.begin_facet();
@@ -112,15 +112,14 @@ private:
     MFnMesh m_mesh;
 };
 
-//why static?
 static void mesh2polyhedron(MFnMesh &mesh, Polyhedron &P)
 {
     Mesh_to_polyhedron<Polyhedron::HalfedgeDS> builder(mesh);
     P.delegate(builder);
     
-    P.make_tetrahedron(Polyhedron::Point(1,0,0), Polyhedron::Point(0,0,1), Polyhedron::Point(0,0,0), Polyhedron::Point(0,1,0));
+    //P.make_tetrahedron(Polyhedron::Point(1,0,0), Polyhedron::Point(0,0,1), Polyhedron::Point(0,0,0), Polyhedron::Point(0,1,0));
     
-    /* Test for correctly built item
+    // Test for correctly built item
     CGAL::set_pretty_mode(cout);
     
     int vert_num = 0;
@@ -131,7 +130,7 @@ static void mesh2polyhedron(MFnMesh &mesh, Polyhedron &P)
         //cout << endl;
     }
     std::cout << "Number of CGAL vertices: " << vert_num << std::endl;
-    
+    /*
     int edge_num = 0;
     for(Polyhedron::Edge_iterator iter = P.edges_begin(); iter != P.edges_end(); ++iter) {
         edge_num++;
