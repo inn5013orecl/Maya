@@ -88,23 +88,26 @@ public:
     void createLaplacian(Eigen_matrix &L, Polyhedron P);
     double calculate_volume(Polyhedron P);
     double calculate_one_ring_area(Polyhedron::Vertex_iterator vi);
-    void quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron &cgalPolyH, std::size_t nvert);
+    void quadratic_solver(double W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron &cgalPolyH, std::size_t nvert);
+    void lls_solver(double W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron &cgalPolyH, std::size_t nvert);
     
     void contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std::size_t nvert, std::size_t nface);
     void connectivity_surgery();
     void curve_refinement();
     
     //use for linear least square solver - part of contract_geometry
-    //typedef typename CGAL::Eigen_solver_traits<Eigen::SimplicialLDLT<Eigen::SparseMatrix<double>>> SolverTraits;
+    typedef typename CGAL::Eigen_solver_traits<Eigen::SimplicialLDLT<Eigen::SparseMatrix<double>>> SolverTraits;
     
-    //typedef typename CGAL::Eigen_solver_traits<Eigen::SimplicialLDLT<Eigen::MatrixXd>> SolverMatrix;
-    //typedef CGAL::Eigen_matrix<Eigen::MatrixXd> MatrixXd;
+    typedef typename CGAL::Eigen_solver_traits<Eigen::SimplicialLDLT<Eigen::MatrixXd>> SolverMatrix;
+    typedef CGAL::Eigen_matrix<Eigen::MatrixXd> E_MatrixXd;
     
 private:
     MDagPath meshDagPath;
     MDagPath curveDagPath;
     
     Polyhedron cgalPolyH;
+    
+    SolverTraits m_solver;
     
     /* May be able to use 'Matrix.set_coef(...)' instead
     typedef Eigen::Triplet<double> Triplet;

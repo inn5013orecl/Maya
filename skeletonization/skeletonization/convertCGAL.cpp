@@ -14,6 +14,8 @@
 //#include "convertCGAL.hpp"
 
 #include <cstdio>
+#include <iostream>
+#include <fstream>
 
 //#include <CGAL/Point_3.h>
 #include <CGAL/Cartesian.h>
@@ -26,6 +28,8 @@
 #include <CGAL/Polyhedron_items_with_id_3.h>
 #include <CGAL/Polyhedron_incremental_builder_3.h>
 //#include <CGAL/Mean_curvature_flow_skeletonization.h>
+
+#include <CGAL/IO/print_wavefront.h>
 
 #include <maya/MFnMesh.h>
 #include <maya/MFloatPointArray.h>
@@ -152,6 +156,11 @@ static void mesh2polyhedron(MFnMesh &mesh, Polyhedron &P)
     }
     std::cout << "Number of CGAL facets: " << facet_num << std::endl;
      */
+}
+
+static void print_obj_file(Polyhedron &P) {
+    std::ofstream ofs("ContractedMesh.obj");
+    CGAL::print_polyhedron_wavefront(ofs, P);
 }
 
 //helper function for computing cotangent

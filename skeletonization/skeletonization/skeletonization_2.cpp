@@ -1,5 +1,5 @@
 //
-//  skeletonization.cpp
+//  skeletonization_2.cpp
 //  skeletonization
 //
 //  Created by Gary Tse on 5/4/16.
@@ -54,19 +54,19 @@ MStatus Skeletonize::doIt(const MArgList &argList) {
     CGAL::set_ascii_mode(cout);
     
     /*
-    for (Polyhedron::Vertex_iterator iter = cgalPolyH.vertices_begin(); iter != cgalPolyH.vertices_end(); ++iter) {
-        std::cout << "vertex " << iter->id() << ": " << iter->point() << std::endl;
-    }
-    std::cout<<std::endl;
-    
-    std::size_t edge_count = 0;
-    for (Polyhedron::Halfedge_iterator iter = cgalPolyH.halfedges_begin(); iter != cgalPolyH.halfedges_end(); ++iter) {
-        std::cout << "Halfedge " << edge_count << ":\nsource: " << iter->opposite()->vertex()->point() << ", end: " << iter->vertex()->point() << std::endl;
-        std::cout << "Halfedge next: " << iter->next()->vertex()->point() <<std::endl;
-        edge_count++;
-    }
-    std::cout<<std::endl;
-    */
+     for (Polyhedron::Vertex_iterator iter = cgalPolyH.vertices_begin(); iter != cgalPolyH.vertices_end(); ++iter) {
+     std::cout << "vertex " << iter->id() << ": " << iter->point() << std::endl;
+     }
+     std::cout<<std::endl;
+     
+     std::size_t edge_count = 0;
+     for (Polyhedron::Halfedge_iterator iter = cgalPolyH.halfedges_begin(); iter != cgalPolyH.halfedges_end(); ++iter) {
+     std::cout << "Halfedge " << edge_count << ":\nsource: " << iter->opposite()->vertex()->point() << ", end: " << iter->vertex()->point() << std::endl;
+     std::cout << "Halfedge next: " << iter->next()->vertex()->point() <<std::endl;
+     edge_count++;
+     }
+     std::cout<<std::endl;
+     */
     
     // save original Polyhedron just in case
     Polyhedron cgalPolyH_original = cgalPolyH;
@@ -80,7 +80,7 @@ MStatus Skeletonize::doIt(const MArgList &argList) {
         }
     }
     
-    //std::cout << "Laplacian Matrix L:\n" << L << std::endl;
+    //  //std::cout << "Laplacian Matrix L:\n" << L << std::endl;
     std::cout << "++++Finished initializing Laplacian matrix++++" << std::endl;
     
     //contract geometry
@@ -93,21 +93,23 @@ MStatus Skeletonize::doIt(const MArgList &argList) {
      }*/
     
     cout << "Maya Vertex count: " << verticesList.length() << endl;
+    
+    print_obj_file(cgalPolyH);
     //cout << "Maya vertices list:" << endl;
     /*
-    for (int i = 0; i < verticesList.length(); i++) {
-        //cout << verticesList[i] << endl;
-        double vertList[4];
-        verticesList[i].get(vertList);
-        for (int j = 0; j < 4; j++) {
-            cout << vertList[j] << ", ";
-        }
-        cout << endl;
-        //cout << " -- "<< typeid(vertList[0]).name() << endl;
-        //cout << endl;
-    }
+     for (int i = 0; i < verticesList.length(); i++) {
+     //cout << verticesList[i] << endl;
+     double vertList[4];
+     verticesList[i].get(vertList);
+     for (int j = 0; j < 4; j++) {
+     cout << vertList[j] << ", ";
+     }
+     cout << endl;
+     //cout << " -- "<< typeid(vertList[0]).name() << endl;
+     //cout << endl;
+     }
      */
-
+    
     
     if (MS::kSuccess != stat) {
         //cout << "Error in code." << endl;
@@ -148,7 +150,7 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
         
         // get angle
         CGAL::Cartesian<double>::Vector_3 v1(q, p),             // v1 = p - q
-                                          v2(q, r);             // v2 = r - q
+        v2(q, r);             // v2 = r - q
         
         // make unit vectors
         v1 = v1 / std::sqrt(v1.squared_length());
@@ -174,7 +176,7 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
         
         // get angle for opposite side
         CGAL::Cartesian<double>::Vector_3 v3(q, p),             // v3 = p - q
-                                          v4(q, r);             // v4 = r - q
+        v4(q, r);             // v4 = r - q
         
         // make unit vectors
         v3 = v3 / std::sqrt(v3.squared_length());
@@ -212,7 +214,7 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
             
             //CGAL::Cartesian<double>::Vector_3
             CGAL::Vector_3<CGAL::Cartesian<double>> v1(q, p),   // v1 = p - q
-                                                    v2(q, r);   // v2 = r - q
+            v2(q, r);   // v2 = r - q
             
             // make unit vectors
             v1 = v1 / std::sqrt(v1.squared_length());
@@ -226,7 +228,7 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
             
             // get angle for opposite side
             CGAL::Vector_3<CGAL::Cartesian<double>> v3(q, p),   // v3 = p - q
-                                                    v4(q, r);   // v4 = r - q
+            v4(q, r);   // v4 = r - q
             
             // make unit vectors
             v3 = v3 / std::sqrt(v3.squared_length());
@@ -238,207 +240,78 @@ void Skeletonize::createLaplacian(Eigen_matrix &L, Polyhedron P) {
             w_ij -= cotan(angle1) + cotan(angle2);
             
         }while(++hc != iter->vertex_begin());
-
+        
         // L.set(i,i, result_of_equation)
         //L.set_coef(i, i, w_ij);
         L(i, i) = w_ij;
         
     }
-    std::cout << "Laplacian Matrix L:\n" << L << std::endl;
+    //std::cout << "Laplacian Matrix L:\n" << L << std::endl;
     std::cout << "++++Finished Calculating Laplacian Matrix++++" << std::endl;
     
 }
 
-void Skeletonize::quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron &cgalPolyH, std::size_t nvert) {
-
-    Program qp(CGAL::EQUAL, false, 0, false, 0);
+void Skeletonize::lls_solver(double W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron &cgalPolyH, std::size_t nvert) {
     
-    // define A for A * x = b (quadratic programming constraint)
-    // W_l * L
+    // create A
     Eigen_matrix a_top = W_l * L;
-    Eigen_matrix a_bot = W_h;
     
-    /*
-    std::cout << "3rd column of first row of a_top: " << a_top.row(0)[2] << std::endl;
-    std::cout << "4th column of 3rd row of a_top: " << a_top.row(2)[3] << std::endl;
-    std::cout << "a_top:\n" << a_top << std::endl;
-    std::cout << "before creating a_top vectors\n";
-    */
+    SolverTraits::Matrix A(nvert * 2, nvert);
     
-    //NOTE: Use (the same) 1 row of a_top for every 3 rows of A, use next row of a_top for next 3 rows of A, repeat till no more rows of a_top
-    
-    Eigen_matrix A(nvert * 6, nvert * 3);
-    A.setZero();
-    //std::cout << "W_L * L:\n" << a_top << std::endl;
-    
-    // top half of A
-    std::size_t k = 0;
-    for (std::size_t i = 0; i < 3 * nvert; ++i) {                           // row
-        std::size_t m = 0;
-        for (std::size_t j = 0; j < 3 * nvert; ++j) {                       // column
-            if (j % 3 == i % 3) {
-                qp.set_a(j, i, a_top.row(k)[m]);
-                A(i,j) = a_top.row(k)[m];
-                m++;
-            }
-            else {
-                qp.set_a(j, i, 0);
-            }
+    for (std::size_t i = 0; i < nvert; ++i) {
+        for (std::size_t j = 0; j < nvert; ++j) {
+            // top half
+            A.set_coef(i, j, a_top(i,j));
+            // bottom half
+            A.set_coef(i + nvert, j, W_h(i,j));
         }
-        // next a_top row every 3 rows of A
-        if ((i+1) % 3 == 0) k++;
     }
     
-    // bottom half of A
-    k = 0;
-    for (std::size_t i = 3 * nvert; i < 6 * nvert; ++i) {                   // row
-        std::size_t m = 0;
-        for (std::size_t j = 0; j < 3 * nvert; ++j) {                       // column
-            if (j % 3 == i % 3) {
-                qp.set_a(j, i, a_bot.row(k)[m]);
-                A(i,j) = a_bot.row(k)[m];
-                m++;
-            }
-            else {
-                qp.set_a(j, i, 0);
-            }
-        }
-        // next a_top row every 3 rows of A
-        if ((i+1) % 3 == 0) k++;
-    }
+    // create B
+    SolverTraits::Vector X(nvert), Bx(nvert * 2);
+    SolverTraits::Vector Y(nvert), By(nvert * 2);
+    SolverTraits::Vector Z(nvert), Bz(nvert * 2);
     
-    std::cout << "A Matrix:\n" << A << std::endl;
-    
-    // define b for A * x = b (quadratic programming constraint)
-    Eigen::MatrixX3d vertices(nvert, 3);
-    vertices.setZero();
-
     // create current iteration vertices matrix
+    Eigen_matrix vertices(nvert, 3);
+    vertices.setZero();
+    
     for (Polyhedron::Vertex_iterator iter = cgalPolyH.vertices_begin(); iter != cgalPolyH.vertices_end(); ++iter) {
         vertices(iter->id(), 0) = iter->point().x();
         vertices(iter->id(), 1) = iter->point().y();
         vertices(iter->id(), 2) = iter->point().z();
     }
-    std::cout << "vertices matrix:\n" << vertices << std::endl;
+    //std::cout << "Pre-solving vertices matrix:\n" << vertices << std::endl;
     
-    Eigen::VectorXd B(nvert * 6);
-    Eigen_matrix b_bot = W_h * vertices; //change L to current vertices matrix
-    std::vector<double> b_bot_v;
-    b_bot_v.clear();
-    
-    std::cout << "b_bot matrix:\n" << b_bot << std::endl;
-    
-    for (int i = 0, nRows = b_bot.rows(), nCols = b_bot.cols(); i < nRows; ++i) {
-        for (int j = 0; j < nCols; ++j) {
-            b_bot_v.push_back(b_bot(i,j));
-        }
-    }
-    
-    for (std::size_t i = 0; i < 3 * nvert; ++i) {
-        qp.set_b(i, 0);
-        B(i) = 0;
-    }
-    k = 0;
-    for (std::size_t i = 3 * nvert; i < 6 * nvert; ++i) {
-        qp.set_b(i, b_bot_v[k]);
-        B(i) = b_bot_v[k];
-        k++;
-    }
-    
-    std::cout << "B vector:\n" << B << std::endl;
-    // solve for minimized energy
-    
-    Eigen_matrix values(nvert * 3, nvert * 3);
-    //std::vector<double> c_values;
-
-    //c_values.clear();
-    values.setZero();
-    std::cout << "original values matrix:\n" << values << std::endl;
-    
-    // set D
-    // relies on integer division to get correct matrix coordinates
-    double W_h_squared = 0;
-    for (std::size_t i = 0; i < nvert * 3; ++i) {                               // row
-        for (std::size_t j = i; j < nvert * 3; ++j) {                           // column
-            W_h_squared = W_h(i%nvert,j%nvert) * W_h(i%nvert,j%nvert);
-            // diagonal of set_d matrix
-            if (i == j) {
-                for (std::size_t k = 0; k < nvert; ++k) {
-                    values(i,j) += a_top(k,j/3) * a_top(k,j/3);
-                }
-                                         
-                values(i,j) += W_h_squared;
-            }
-            // all valid combinations of set_d matrix
-            else if (i%3 == j%3) {
-                for (std::size_t k = 0; k < nvert; ++k) {
-                    values(i,j) += a_top(k,i/3) * a_top(k,j/3);
-                }
-            }
-            // all combinations of set_d matrix that do not exist from W_l * L
-            else {
-                values(i,j) = 0;
-            }
-        }
-    }
-    
-    std::cout << "values matrix:\n" << values << std::endl;
-    
-    for (std::size_t i = 0; i < nvert * 3; ++i) {                               // row
-        for (std::size_t j = i; j < nvert * 3; ++j) {                           // column
-            qp.set_d(j, i, 2 * values(i,j));
-        }
-        
-    }
-    std::cout << "after setting d" << std::endl;
-    // set C & C0
-    /*
     for (std::size_t i = 0; i < nvert; ++i) {
-        c_values.push_back(vertices(i,0));
-        c_values.push_back(vertices(i,1));
-        c_values.push_back(vertices(i,2));
-    }
-    
-    for (std::size_t i = 0; i < nvert * 3; ++i) {
-        qp.set_c(i, c_values[i]);
-    }
-    */
-    double c_0 = 0;                                                             // c_0 = sum of all c_0 for each vertex
-    for (std::size_t i = 0, j = 0; i < nvert * 3; i+=3, ++j) {
-        qp.set_c(i,   -2 * vertices(j,0) * W_h(j,j) * W_h(j,j));
-        qp.set_c(i+1, -2 * vertices(j,1) * W_h(j,j) * W_h(j,j));
-        qp.set_c(i+2, -2 * vertices(j,2) * W_h(j,j) * W_h(j,j));
+        Bx[i] = 0;
+        By[i] = 0;
+        Bz[i] = 0;
         
-        c_0 += ((vertices(j,0) * vertices(j,0)) + (vertices(j,1) * vertices(j,1)) + (vertices(j,2) * vertices(j,2))) * (W_h(j,j) * W_h(j,j));
+        Bx[i + nvert] = W_h(i,i) * vertices(i,0);
+        By[i + nvert] = W_h(i,i) * vertices(i,1);
+        Bz[i + nvert] = W_h(i,i) * vertices(i,2);
     }
     
-    qp.set_c0(c_0);                                                   // c_0 needs to be sum of all of them; w_h^2 * (vertices(i).x^2 + vertices(i).y^2 + vertices(i).z^2)
+    // solve At * A * X = At * B
+    m_solver.normal_equation_factor(A);
+    m_solver.normal_equation_solver(Bx, X);
+    m_solver.normal_equation_solver(By, Y);
+    m_solver.normal_equation_solver(Bz, Z);
     
-    
-    std::cout << "after setting d, c, c0" << std::endl;
-    Solution s = CGAL::solve_quadratic_program(qp, ET());
-    std::cout << "after setting s" << std::endl;
-    auto solution_iter = s.variable_values_begin();
+    // copy into original mesh
     std::vector<Polyhedron::Point_3> pts;
     pts.reserve(nvert);
-    //typedef CGAL::Cartesian<double>                 Kernel;
-    //typedef Kernel::Point_3                         Point;
+    
     for (std::size_t i = 0; i < nvert; ++i) {
-        double x = CGAL::to_double(solution_iter->numerator());
-        double y = CGAL::to_double((solution_iter+1)->numerator())/CGAL::to_double((solution_iter+1)->denominator());
-        double z = CGAL::to_double((solution_iter+2)->numerator())/CGAL::to_double((solution_iter+2)->denominator());
-        
-        pts.push_back(Polyhedron::Point_3(x,y,z));
-        solution_iter += 3;
+        pts.push_back(Polyhedron::Point_3(X[i],Y[i],Z[i]));
     }
-    std::cout << "solutions:" << std::endl;
-    for (auto const &n : pts) {
-        std::cout << "\n" << n;
-    }
+    
     std::copy(pts.begin(), pts.end(), cgalPolyH.points_begin());
+    std::cout << "+++++Linear Least Squared Solver completed+++++" << std::endl;
     
     CGAL_postcondition(cgalPolyH.is_valid());
-
+    
 }
 
 double Skeletonize::calculate_volume(Polyhedron P) {
@@ -449,7 +322,7 @@ double Skeletonize::calculate_volume(Polyhedron P) {
         //make sure it's a triangle
         CGAL_assertion(iter->is_triangle());
         Polyhedron::Point_3 p1, p2, p3;
-
+        
         p1 = iter->halfedge()->vertex()->point();
         p2 = iter->halfedge()->next()->vertex()->point();
         p3 = iter->halfedge()->next()->next()->vertex()->point();
@@ -458,7 +331,7 @@ double Skeletonize::calculate_volume(Polyhedron P) {
         //double a = CGAL::Linear_algebraCd<double>::determinant(m);
         
         Eigen_matrix m(4, 4);
-        //std::cout << "Initialized Matrix m:\n" << m << std::endl;
+        //  //std::cout << "Initialized Matrix m:\n" << m << std::endl;
         
         // 1st row
         m(0, 0) = p1.x();
@@ -481,16 +354,16 @@ double Skeletonize::calculate_volume(Polyhedron P) {
         m(3, 2) = 1;
         m(3, 3) = 1;
         
-        //std::cout << "Post-set Matrix m:\n" << m << std::endl;
+        //  //std::cout << "Post-set Matrix m:\n" << m << std::endl;
         
         double a = m.determinant();
         
-        //a = std::abs(a) / 6;
-        a = a / 6;
+        a = std::abs(a) / 6;
+        //a = a / 6;
         
         // 6 * Volume = sum of determinants of (triangular) faces of polyhedron
         volume += a;
-
+        
         // probably doesn't work due to volume calculations and triangle orientations
         // orientation is defined by location of CGAL::ORIGIN in relation to plane defined by p1,p2,p3
         //CGAL::Tetrahedron_3<CGAL::Cartesian<double>> tetra(p1,p2,p3,CGAL::ORIGIN);
@@ -501,7 +374,7 @@ double Skeletonize::calculate_volume(Polyhedron P) {
 }
 
 double Skeletonize::calculate_one_ring_area(Polyhedron::Vertex_iterator vi) {
-
+    
     double or_area = 0.0;
     Polyhedron::Halfedge_around_vertex_const_circulator hc = vi->vertex_begin();
     
@@ -523,8 +396,8 @@ void Skeletonize::contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std:
     // initial values
     std::cout << "++++Begin Contract Geometry++++" << std::endl;
     int iter_count = 0;
-    double original_volume = 0.0, current_volume = 0.0, volume_ratio = 0.0, current_or_area = 0.0;
-    double threshold = 1e-6;
+    double original_volume = 0.0, current_volume = 0.0, volume_ratio = 100000.0, current_or_area = 0.0;
+    double threshold = 0.000001;
     std::cout << "++++BEFORE 1st calculate_volume++++" << std::endl;
     original_volume = calculate_volume(cgalPolyH);
     std::vector<double> original_or_area;
@@ -537,8 +410,10 @@ void Skeletonize::contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std:
     
     std::cout << "Size (# of items in) of original_or_area: " << original_or_area.size() << std::endl;
     
-    Eigen_matrix W_h(nvert, nvert), W_l(nvert, nvert), W_h_orig(nvert, nvert);
-
+    Eigen_matrix W_h(nvert, nvert), W_h_orig(nvert, nvert);
+    
+    double W_l = 0;
+    
     // calculate initial avg face area term for W_l
     double f_area = 0.0;
     for (Polyhedron::Facet_iterator iter = cgalPolyH.facets_begin(); iter != cgalPolyH.facets_end(); ++iter) {
@@ -550,64 +425,69 @@ void Skeletonize::contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std:
         p3 = iter->halfedge()->next()->next()->vertex()->point();
         
         CGAL::Triangle_3<CGAL::Cartesian<double>> t(p1,p2,p3);
-        //std::cout << "current face's area: " << sqrt(t.squared_area()) << std::endl;
+        //  //std::cout << "current face's area: " << sqrt(t.squared_area()) << std::endl;
         f_area += sqrt(t.squared_area());
     }
     f_area = f_area / nface;
+    
+    W_l = pow(10, -3) * sqrt(f_area);
     
     for (std::size_t i = 0; i < nvert; ++i) {
         for (std::size_t j = 0; j < nvert; ++j) {
             if (i == j) {
                 W_h(i, i) = 1.0;
-                W_l(i, i) = pow(10, -3) * sqrt(f_area);
                 // save original W_h for update purposes
                 W_h_orig(i, i) = 1.0;
             }
             else {
                 W_h(i, j) = 0.0;
-                W_l(i, j) = 0.0;
                 // save original W_h for update purposes
                 W_h_orig(i, j) = 0.0;
             }
         }
     }
     
-    std::cout << "W_h matrix:\n" << W_h << std::endl;
-    std::cout << "W_l matrix:\n" << W_l << std::endl;
+    //  //std::cout << "W_h matrix:\n" << W_h << std::endl;
+    //  //std::cout << "W_l matrix:\n" << W_l << std::endl;
     
     
-    //do {
+    while (volume_ratio >= threshold && iter_count <= 30) {          // iteration count max 30 as a breakpoint
         // create Laplacian matrix with new vertex positions every iteration
         createLaplacian(L, cgalPolyH);
     
-        // Quadratic function minimization
-        quadratic_solver(W_l, W_h, L, cgalPolyH, nvert);
+        // Solver for linear least squared
+        lls_solver(W_l, W_h, L, cgalPolyH, nvert);
     
-        std::cout << "post solution vertices:" << std::endl;
+        /*
+         std::cout << "post solution vertices:" << std::endl;
         for(Polyhedron::Vertex_iterator iter = cgalPolyH.vertices_begin(); iter != cgalPolyH.vertices_end(); ++iter) {
             std::cout << iter->point() << std::endl;
             //cout << endl;
         }
-    
+        */
+        
         // update weights
         W_l *= 2.0;
         for (Polyhedron::Vertex_iterator iter = cgalPolyH.vertices_begin(); iter != cgalPolyH.vertices_end(); ++iter) {
             std::size_t i;
             i = iter->id();
             current_or_area = calculate_one_ring_area(iter);
-            W_h(i,i) = sqrt(original_or_area[i]/current_or_area);
-            //W_h.set(i,i, W_h_orig(i,i) * sqrt(original_or_area[i]/current_or_area[i]));       // w_h_orig diagonals = 1.0
+            W_h(i,i) = sqrt(original_or_area[i]/current_or_area);                                       // w_h_orig diagonals = 1.0
+            //W_h.set(i,i, W_h_orig(i,i) * sqrt(original_or_area[i]/current_or_area[i]));
         }
-    
+        
         // calculate current volume after each iteration
         std::cout << "++++BEFORE 2nd calculate volume++++" << std::endl;
         current_volume = calculate_volume(cgalPolyH);
         std::cout << "++++AFTER 2nd calculate volume++++" << std::endl;
         volume_ratio = current_volume / original_volume;
+        std::cout << "volume ratio: " << volume_ratio << std::endl;
         std::cout << "++++AFTER calculating volume RATIO++++" << std::endl;
         
         ++iter_count;
-    //}while(volume_ratio >= threshold || iter_count >= 30);                                    // iteration count max 30 as a breakpoint
+    }
+    
+    std::cout << "iter count: " << iter_count << std::endl;
     
     if (iter_count >= 30) {
         std::cout << "max iterations of 30 reached" << std::endl;
