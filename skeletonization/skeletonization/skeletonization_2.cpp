@@ -255,8 +255,9 @@ void Skeletonize::lls_solver(double W_l, Eigen_matrix W_h, Eigen_matrix L, Polyh
     
     // create A
     Eigen_matrix a_top = W_l * L;
-    
+    std::cout << "Before Matrix A" << std::endl;    
     SolverTraits::Matrix A(nvert * 2, nvert);
+    std::cout << "Matrix A created" << std::endl;
     
     for (std::size_t i = 0; i < nvert; ++i) {
         for (std::size_t j = 0; j < nvert; ++j) {
@@ -266,6 +267,8 @@ void Skeletonize::lls_solver(double W_l, Eigen_matrix W_h, Eigen_matrix L, Polyh
             A.set_coef(i + nvert, j, W_h(i,j));
         }
     }
+    
+    std::cout << "Finished setting A" << std::endl;
     
     // create B
     SolverTraits::Vector X(nvert), Bx(nvert * 2);
