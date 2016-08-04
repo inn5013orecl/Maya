@@ -14,7 +14,7 @@
 		ED1367151CDA92B400D63897 /* libgmp.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED1367111CDA92B400D63897 /* libgmp.10.dylib */; };
 		ED1367171CDA92FB00D63897 /* libmpfr.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED1367161CDA92FB00D63897 /* libmpfr.4.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
 		ED13671B1CDAAE4400D63897 /* skeletonization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ED1367191CDAAE4400D63897 /* skeletonization.hpp */; };
-		EDA5617A1D4F2EBF00D4E1FA /* skeletonization_2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDA561791D4F2EBF00D4E1FA /* skeletonization_2.cpp */; };
+		EDA5617A1D4F2EBF00D4E1FA /* skeletonization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDA561791D4F2EBF00D4E1FA /* skeletonization.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,9 +29,9 @@
 		ED1367101CDA92B400D63897 /* libCGAL.11.0.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libCGAL.11.0.1.dylib; path = ../../../../../../opt/local/lib/libCGAL.11.0.1.dylib; sourceTree = "<group>"; };
 		ED1367111CDA92B400D63897 /* libgmp.10.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgmp.10.dylib; path = ../../../../../../opt/local/lib/libgmp.10.dylib; sourceTree = "<group>"; };
 		ED1367161CDA92FB00D63897 /* libmpfr.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmpfr.4.dylib; path = ../../../../../../opt/local/lib/libmpfr.4.dylib; sourceTree = "<group>"; };
-		ED1367181CDAAE4400D63897 /* skeletonization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skeletonization.cpp; sourceTree = "<group>"; };
+		ED1367181CDAAE4400D63897 /* skeletonization_old.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skeletonization_old.cpp; sourceTree = "<group>"; };
 		ED1367191CDAAE4400D63897 /* skeletonization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = skeletonization.hpp; sourceTree = "<group>"; };
-		EDA561791D4F2EBF00D4E1FA /* skeletonization_2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skeletonization_2.cpp; sourceTree = "<group>"; };
+		EDA561791D4F2EBF00D4E1FA /* skeletonization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skeletonization.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +78,8 @@
 				ED13670B1CDA919C00D63897 /* convertCGAL.hpp */,
 				ED13670A1CDA919C00D63897 /* convertCGAL.cpp */,
 				ED1367191CDAAE4400D63897 /* skeletonization.hpp */,
-				ED1367181CDAAE4400D63897 /* skeletonization.cpp */,
-				EDA561791D4F2EBF00D4E1FA /* skeletonization_2.cpp */,
+				ED1367181CDAAE4400D63897 /* skeletonization_old.cpp */,
+				EDA561791D4F2EBF00D4E1FA /* skeletonization.cpp */,
 				ED1366FB1CDA907500D63897 /* MayaPluginDebug.xcconfig */,
 				ED1366FC1CDA907500D63897 /* MayaPluginRelease.xcconfig */,
 			);
@@ -171,7 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED13670C1CDA919C00D63897 /* convertCGAL.cpp in Sources */,
-				EDA5617A1D4F2EBF00D4E1FA /* skeletonization_2.cpp in Sources */,
+				EDA5617A1D4F2EBF00D4E1FA /* skeletonization.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

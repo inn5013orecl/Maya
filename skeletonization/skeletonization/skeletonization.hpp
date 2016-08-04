@@ -11,7 +11,9 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <ctime>
 #include <cmath>
+#include <queue>
 
 #include <maya/MPxCommand.h>
 #include <maya/MGlobal.h>
@@ -40,6 +42,7 @@
 #include <CGAL/boost/graph/properties_Polyhedron_3.h>
 //#include <CGAL/Tetrahedron_3.h>
 #include <CGAL/Triangle_3.h>
+#include <CGAL/squared_distance_3.h>
 
 #include <Eigen/LU>
 
@@ -48,6 +51,8 @@
 #include <CGAL/Eigen_solver_traits.h>
 #include <Eigen/SparseCholesky>
 #include <boost/graph/graph_traits.hpp>
+#include <boost/foreach.hpp>
+#include <CGAL/Bbox_3.h>
 
 #include <CGAL/QP_models.h>
 #include <CGAL/QP_functions.h>
@@ -84,12 +89,6 @@ public:
     typedef CGAL::Linear_algebraCd<double>::Matrix  cgalMatrix;
     typedef CGAL::Quadratic_program<double>         Program;
     typedef CGAL::Quadratic_program_solution<ET>    Solution;
-
-    void createLaplacian(Eigen_matrix &L, Polyhedron P);
-    double calculate_volume(Polyhedron P);
-    double calculate_one_ring_area(Polyhedron::Vertex_iterator vi);
-    void quadratic_solver(double W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron &cgalPolyH, std::size_t nvert);
-    void lls_solver(double W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron &cgalPolyH, std::size_t nvert);
     
     void contract_geometry(Polyhedron &cgalPolyH, Eigen_matrix &L, std::size_t nvert, std::size_t nface);
     void connectivity_surgery();
@@ -108,6 +107,33 @@ private:
     Polyhedron cgalPolyH;
     
     SolverTraits m_solver;
+    
+    void createLaplacian(Eigen_matrix &L, Polyhedron P);
+    double calculate_volume(Polyhedron P);
+    double calculate_one_ring_area(Polyhedron::Vertex_iterator vi);
+    bool detect_degeneracies(Polyhedron::Vertex_iterator vertex, double min_edge_length);
+    void quadratic_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron &cgalPolyH, std::size_t nvert);
+    void lls_solver(Eigen_matrix W_l, Eigen_matrix W_h, Eigen_matrix L, Polyhedron &cgalPolyH, std::size_t nvert, std::vector<bool> degenerate_vertex);
+    
+    double diagonal_length(const CGAL::Bbox_3& bbox) {
+        
+        double dx = bbox.xmax() - bbox.xmin();
+        double dy = bbox.ymax() - bbox.ymin();
+        double dz = bbox.zmax() - bbox.zmin();
+        
+        double diag = dx * dx + dy * dy + dz * dz;
+        return std::sqrt(diag);
+    }
+    
+    double init_min_edge_length() {
+        
+        Polyhedron::Point_iterator vb = cgalPolyH.points_begin();
+        Polyhedron::Point_iterator ve = cgalPolyH.points_end();
+        CGAL::Bbox_3 bbox = CGAL::bbox_3(vb, ve);
+        return 0.002 * diagonal_length(bbox);
+    }
+    
+
     
     /* May be able to use 'Matrix.set_coef(...)' instead
     typedef Eigen::Triplet<double> Triplet;
